@@ -1551,7 +1551,6 @@ restartAfterLongLoop = false;
   updateIndicator();
 }
 
-
 // ============================================================
 // TRAIL
 // ============================================================
@@ -1559,18 +1558,18 @@ restartAfterLongLoop = false;
 function updateTrail() {
 
   /*
-   * 長いループの最大長は8語。
+   * 長いループの最大長は9個。
    *
-   * 最初から8個の丸を表示し、
+   * 最初から9個の丸を表示し、
    * 撃った数だけ左から塗る。
    *
-   * used.length
-   *   0 → ○○○○○○○○
-   *   1 → ●○○○○○○○
-   *   2 → ●●○○○○○○
-   *   3 → ●●●○○○○○
-   *   ...
-   *   8 → ●●●●●●●●
+   * 長いループが完成した場合は、
+   *
+   * 最初の同じ単語
+   * ↓
+   * 最後の同じ単語
+   *
+   * の間にある丸をすべて赤色にする。
    */
 
   const maxCount = 9;
@@ -1586,18 +1585,54 @@ function updateTrail() {
     const filled =
       i < used.length;
 
+
+    /*
+     * 長いループ完成時の赤色範囲。
+     *
+     * loopRange は
+     *
+     * [最初に同じ単語が出た位置,
+     *  最後に同じ単語が出た位置]
+     *
+     * になっている。
+     */
+
+    const inLoop =
+      loopRange &&
+      i >= loopRange[0] &&
+      i <= loopRange[1];
+
+
+    let classes =
+      'trail-dot';
+
+
+    if (filled) {
+
+      classes +=
+        ' trail-dot-filled';
+    }
+
+
+    if (inLoop) {
+
+      classes +=
+        ' trail-dot-loop';
+    }
+
+
     html += `
       <span
-        class="trail-dot${filled ? ' trail-dot-filled' : ''}"
+        class="${classes}"
         aria-hidden="true"
       ></span>
     `;
   }
 
+
   trail.innerHTML =
     `<span class="trail-dots">${html}</span>`;
 }
-
 
 // ============================================================
 // INDICATOR

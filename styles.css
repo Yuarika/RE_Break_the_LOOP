@@ -1832,4 +1832,13 @@ transform: translateX(-50%) scale(1.05);
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
+}/* ============================================================
+   長いループ完成時の赤い丸
+   ============================================================ */
+
+.trail-dot-loop {
+  background: #e53935 !important;
+  border-color: #e53935 !important;
+  box-shadow:
+    0 0 8px rgba(229, 57, 53, 0.8);
 }
