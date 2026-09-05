@@ -1,104 +1,1835 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=DM+Mono&family=Space+Grotesk:wght@400;500;700&display=swap');
 
-* { box-sizing: border-box; }
-body { margin: 0; color: #151515; font-family: "Space Grotesk", sans-serif; }
-.intro-page { min-height: 100vh; display: grid; place-items: center; background: #f6f6f3; }
-.intro-card { width: min(680px, calc(100% - 40px)); padding: 42px 44px 54px; background: #fff; }
-.eyebrow, .small, .hud, .message { font-family: "DM Mono", monospace; }
-.eyebrow { letter-spacing: .15em; font-size: 11px; margin: 0 0 28px; }
-h1 { font-size: clamp(36px, 7vw, 58px); letter-spacing: -.06em; margin: 0 0 40px; }
-.intro-logo { height: 365px; margin: -48px 0 -10px; }
-.intro-logo img { width: 410px; height: 365px; display: block; margin: auto; object-fit: contain; }
-.intro-tagline { margin: -8px 0 36px; text-align: center; font-size: 14px; letter-spacing: .12em; }
-.rule-box h2 { margin: 0 0 16px; font: 500 13px "DM Mono", monospace; letter-spacing: .13em; }
-.rule-box { border-left: 3px solid #222; padding-left: 20px; line-height: 1.8; }
-.small { font-size: 11px; color: #777; margin-top: 28px; }
-.start-button, #reset { appearance: none; cursor: pointer; color: #fff; background: #1b1b1b; border: 0; font: inherit; text-decoration: none; }
-.start-button { display: flex; justify-content: space-between; margin-top: 38px; padding: 16px 20px; letter-spacing: .08em; }
-.start-button:hover { background: #5e5e5e; }
 
-.game-page { overflow: hidden; background: #e9e9e7; }
-.hud { height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 18px; background: #fff; position: relative; z-index: 2; border-bottom: 1px solid #ddd; font-size: 11px; letter-spacing: .08em; }
-#trail { flex: 1; text-align: center; margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: #555; }
-#reset { padding: 9px 12px; font: 11px "DM Mono", monospace; letter-spacing: .1em; }
-#reset:hover { background: #aa3030; }
-.room { position: relative; height: calc(100vh - 58px); min-height: 530px; overflow: hidden; background: linear-gradient(115deg, #fafafa, #e7e7e5); box-shadow: inset 0 0 70px rgba(0,0,0,.08); transition: background .7s; }
-.room:before, .room:after { content: ''; position: absolute; pointer-events: none; }
-.room:before { left: 0; top: 0; width: 14%; height: 100%; background: rgba(0,0,0,.035); }
-.room:after { right: 0; top: 0; width: 14%; height: 100%; background: rgba(0,0,0,.035); }
-.wall-title { position: absolute; top: 8%; width: 100%; text-align: center; font: 600 clamp(27px, 4vw, 50px) "Chakra Petch", "Space Grotesk", sans-serif; letter-spacing: -.015em; z-index: 3; }
-.wall-title.title-art { top: 2%; height: 175px; }
-.title-art img { width: 185px; height: 175px; object-fit: contain; }
-.scene { position: absolute; inset: 18% 6% 8%; z-index: 1; }
-.target { position: absolute; cursor: crosshair; border: 0; background: transparent; color: inherit; font: inherit; transition: transform .2s, opacity .2s; }
-.target:hover { transform: scale(1.05); }
-.target:focus-visible { outline: 2px dashed #222; outline-offset: 5px; }
-.bullet { position: absolute; width: 21px; height: 21px; border-radius: 50%; background: #101010; transform: translate(-50%, -50%); z-index: 5; box-shadow: 0 0 0 3px rgba(255,255,255,.5); }
-.door { position: absolute; cursor: pointer; width: 130px; height: 230px; left: 50%; bottom: 10%; transform: translateX(-50%); background: #292522; border: 5px solid #554238; border-bottom: 0; z-index: 4; animation: arrive .25s ease-out; box-shadow: inset 0 0 0 2px #171513; }
-.door:not(.open) { opacity: .62; }
-.door:before { content: ''; position: absolute; inset: 9px; border: 1px solid #8c7665; }
-.door small { position: absolute; bottom: 24px; left: 0; right: 0; font: 10px "DM Mono", monospace; letter-spacing: .15em; }
-.knob { position: absolute; right: 14px; top: 52%; width: 8px; height: 8px; background: #333; border-radius: 50%; }
-.message { position: absolute; bottom: 27px; left: 30px; font-size: 12px; letter-spacing: .06em; z-index: 5; }
-@keyframes arrive { from { transform: translate(-50%, 150px); } to { transform: translateX(-50%); } }
+* {
+  box-sizing: border-box;
+}
 
-.infinity { width: min(31vw, 260px); height: min(18vw, 146px); font-size: 0; left: 50%; top: 27%; transform: translate(-50%, -50%); background: url('image/LOOP.png') center / contain no-repeat; }
-.shot-infinity { visibility: hidden; }
-.infinity:hover { transform: translate(-50%, -50%) scale(1.05); }
-.sign { font: 700 clamp(42px, 8vw, 88px) "DM Mono", monospace; letter-spacing: -.1em; }
-.sign.right { right: 14%; top: 45%; } .sign.left { left: 14%; top: 45%; }
-.object { width: 180px; text-align: center; font-weight: 700; font-size: 21px; z-index: 2; }
-.object .drawing { display: block; height: 120px; margin-bottom: 12px; position: relative; }
-.roof { left: 13%; top: 34%; } .roof .drawing { background: url('image/Roof.jpg') center / contain no-repeat; }
-.room-icon { left: 50%; top: 34%; transform: translateX(-50%); } .room-icon:hover { transform: translateX(-50%) scale(1.05); } .room-icon .drawing { border: 5px solid #222; background: linear-gradient(90deg, transparent 48%, #222 49%, #222 52%, transparent 53%); }
-.root { right: 13%; top: 34%; } .root .drawing { background: url('image/Root.jpg') center / contain no-repeat; }
-.foot { left: 50%; top: 40%; transform: translateX(-50%); } .foot:hover { transform: translateX(-50%) scale(1.05); } .foot .drawing { background: url('image/Foot.jpg') center / contain no-repeat; }
-.fool { right: 17%; top: 34%; } .fool .drawing:before { content: 'BAKA'; font: 700 45px "DM Mono"; border: 4px solid; padding: 28px 7px; display: inline-block; }
-.door-target { left: 50%; top: 42%; transform: translateX(-50%); font: 700 35px "DM Mono"; padding: 30px 18px; border: 5px solid #222; background: rgba(255,255,255,.15); }
-.door-target:hover { transform: translateX(-50%) scale(1.05); }
-.tool-image { left: 50%; top: 40%; width: 190px; height: 190px; transform: translateX(-50%); background: url('image/Tool.jpg') center / contain no-repeat; }
-.tool-image:hover { transform: translateX(-50%) scale(1.05); }
-.room-background { inset: 0; z-index: 1; }
-.room-m { background: linear-gradient(145deg, #4c3b68, #ba7896 48%, #7779af); color: #fff; }
-.room-m:before, .room-m:after { background: rgba(255,255,255,.16); }
-.room-m .wall-title { text-shadow: 0 3px 20px #443452; }
-.room-m.mood-broken { background: linear-gradient(115deg, #fafafa, #e7e7e5); color: #151515; }
-.room-m.mood-broken:before, .room-m.mood-broken:after { background: rgba(0,0,0,.07); }
-.room-m.mood-broken .wall-title { text-shadow: none; }
-.room-m .scene:before { content: ''; position: absolute; left: 50%; top: 25%; width: 230px; height: 155px; transform: translateX(-50%); border: 13px solid #211d35; background: radial-gradient(circle at 19% 23%, #fff 0 1px, transparent 2px), radial-gradient(circle at 73% 39%, #fff 0 1px, transparent 2px), radial-gradient(circle at 45% 72%, #fff 0 1px, transparent 2px), linear-gradient(145deg, #071128, #202052 60%, #683c68); }
-.room-m .scene:after { content: ''; position: absolute; left: 50%; top: 25%; height: 155px; width: 8px; background: #211d35; transform: translateX(-50%); }
-.moon { left: calc(50% + 27px); top: 29%; width: 70px; height: 70px; border-radius: 50%; background: #fff3c8; z-index: 1; }
-.mood { left: 12%; top: 40%; color: white; width: 270px; font-size: 24px; font-weight: 700; }
-.clock { left: 50%; top: 44%; transform: translate(-50%, -50%); width: 290px; height: 110px; border: 7px solid #222; border-radius: 0; display: grid; place-items: center; font: 28px "DM Mono"; background: rgba(255,255,255,.56); }
-.clock:hover { transform: translate(-50%, -50%) scale(1.05); }
-.final-loop { right: 4%; bottom: 6%; font-size: clamp(31px, 7vw, 80px); font-weight: 700; letter-spacing: -.08em; padding: 5px; }
-.final-loop:after { content: ''; position: absolute; width: 10px; height: 10px; right: 3px; bottom: 5px; border-radius: 50%; background: transparent; }
-.final-loop:hover:after { background: rgba(205,0,0,.25); }
-.red { color: #c32727; }
-.title-fool { appearance: none; border: 0; padding: 0; cursor: crosshair; color: #c32727; background: transparent; font: inherit; font-weight: inherit; }
-.title-fool:hover { text-shadow: 0 0 10px rgba(195,39,39,.55); }
-.period-target { appearance: none; cursor: crosshair; display: inline-block; border: 0; width: 20px; height: 30px; padding: 0; color: transparent; background: transparent; vertical-align: baseline; position: relative; z-index: 6; }
-.room-d .door:hover { transform: translateX(-50%) scale(1.05); }
-.loop-word { color: #b12435; font-weight: 700; }
-.loop-indicator { position: absolute; top: 18%; left: 50%; transform: translateX(-50%); width: 420px; text-align: center; z-index: 2; pointer-events: none; }
-.indicator-row { display: grid; grid-template-columns: 130px 160px 130px; align-items: center; }
-.indicator-side { height: 92px; display: flex; align-items: center; gap: 8px; }
-.indicator-side.left { justify-content: flex-end; }
-.indicator-side.right { justify-content: flex-start; }
-.indicator-side.left { margin-right: -18px; }
-.indicator-side.right { margin-left: -18px; }
-.loop-indicator .infinity-mark { width: 160px; height: 92px; background: url('image/LOOP.png') center / contain no-repeat; }
-.infinite-button { cursor: crosshair; border: 0; padding: 0; pointer-events: auto; }
-.hint-image { width: 48px; height: 48px; object-fit: contain; }
-.arrow-image { width: 48px; height: 48px; object-fit: contain; }
-.steps { display: flex; justify-content: center; gap: 7px; margin-top: 12px; }
-.steps i { width: 6px; height: 6px; border: 1px solid #222; border-radius: 50%; }
-.steps i.on { background: #222; }
-.room-c { background: radial-gradient(circle, #fff8bd, #e4a82c 55%, #54220b); color: #fff; }
-.room-c:before, .room-c:after { border-color: rgba(255,255,255,.35); }
-.clear-scene { position: absolute; inset: 15% 5%; display: grid; place-content: center; text-align: center; z-index: 7; }
-.clear-scene h2 { margin: 0; font: 700 clamp(70px, 17vw, 180px) "Space Grotesk", sans-serif; letter-spacing: -.08em; text-shadow: 0 6px 0 #6b250b, 0 0 38px #fff8a4; }
-.clear-scene p { font: 15px "DM Mono", monospace; letter-spacing: .16em; }
-.x-share { display: inline-block; margin: 24px auto; padding: 13px 18px; border: 2px solid #fff; color: #fff; text-decoration: none; font: 13px "DM Mono", monospace; letter-spacing: .08em; }
-.x-share:hover { background: #fff; color: #4d1d0b; }
-@media (max-width: 620px) { .intro-card { padding: 36px 26px; } .object { transform: scale(.75); } .roof { left: -4%; } .root { right: -5%; } .door { width: 95px; height: 190px; } }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+
+body {
+  color: #151515;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+
+/* ============================================================
+   INTRO
+   ============================================================ */
+
+.intro-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f6f6f3;
+}
+
+.intro-card {
+  width: min(680px, calc(100% - 40px));
+  padding: 42px 44px 54px;
+  background: #fff;
+}
+
+.eyebrow,
+.small,
+.hud,
+.message {
+  font-family: "DM Mono", monospace;
+}
+
+.eyebrow {
+  margin: 0 0 28px;
+  font-size: 11px;
+  letter-spacing: .15em;
+}
+
+h1 {
+  margin: 0 0 40px;
+  font-size: clamp(36px, 7vw, 58px);
+  letter-spacing: -.06em;
+}
+
+.intro-logo {
+  height: 365px;
+  margin: -48px 0 -10px;
+}
+
+.intro-logo img {
+  display: block;
+  width: 410px;
+  height: 365px;
+  margin: auto;
+  object-fit: contain;
+}
+
+.intro-tagline {
+  margin: -8px 0 36px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: .12em;
+}
+
+.rule-box {
+  border-left: 3px solid #222;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.rule-box h2 {
+  margin: 0 0 16px;
+  font: 500 13px "DM Mono", monospace;
+  letter-spacing: .13em;
+}
+
+.small {
+  margin-top: 28px;
+  font-size: 11px;
+  color: #777;
+}
+
+.start-button,
+#reset {
+  appearance: none;
+  cursor: pointer;
+  color: #fff;
+  background: #1b1b1b;
+  border: 0;
+  font: inherit;
+  text-decoration: none;
+}
+
+.start-button {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 38px;
+  padding: 16px 20px;
+  letter-spacing: .08em;
+}
+
+.start-button:hover {
+  background: #5e5e5e;
+}
+
+
+/* ============================================================
+   GAME
+   ============================================================ */
+
+.game-page {
+  overflow: hidden;
+  background: #e9e9e7;
+}
+
+.hud {
+  position: relative;
+  z-index: 20;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 18px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+/* ============================================================
+   TRAIL
+   8つの丸でループ進行状況を表示
+   ============================================================ */
+
+#trail {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  min-height: 32px;
+  pointer-events: none;
+}
+
+.trail-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 28px;
+}
+
+.trail-dot {
+  display: block;
+  width: 13px;
+  height: 13px;
+  flex: 0 0 13px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid rgba(0, 0, 0, .45);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .45);
+  transition:
+    background .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease,
+    transform .22s ease;
+}
+
+.trail-dot-filled {
+  background: #111;
+  border-color: #111;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, .05),
+    0 2px 7px rgba(0, 0, 0, .18);
+  transform: scale(1.05);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+#reset {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 50;
+  padding: 9px 12px;
+  font: 11px "DM Mono", monospace;
+  letter-spacing: .1em;
+}
+
+#reset:hover {
+  background: #aa3030;
+}
+
+
+/* ============================================================
+   ROOM
+   ============================================================ */
+
+.room {
+  position: relative;
+  height: calc(100vh - 58px);
+  min-height: 530px;
+  overflow: hidden;
+  background: linear-gradient(115deg, #fafafa, #e7e7e5);
+  box-shadow: inset 0 0 70px rgba(0,0,0,.08);
+  transition: background .7s;
+}
+
+.room::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 30%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    linear-gradient(to bottom, rgba(80,80,80,.02), rgba(30,30,30,.14)),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.035) 0, rgba(0,0,0,.035) 1px, transparent 1px, transparent 90px);
+  clip-path: polygon(0 30%, 100% 30%, 100% 100%, 0 100%);
+  border-top: 2px solid rgba(0,0,0,.08);
+}
+
+.room::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 14%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(0,0,0,.07), rgba(0,0,0,.015));
+  z-index: 0;
+}
+
+
+/* ============================================================
+   TITLE
+   ============================================================ */
+
+.wall-title {
+  position: absolute;
+  top: 8%;
+  width: 100%;
+  text-align: center;
+  font: 600 clamp(27px, 4vw, 50px) "Chakra Petch", "Space Grotesk", sans-serif;
+  letter-spacing: -.015em;
+  z-index: 3;
+}
+
+.title-fixed {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.title-loop {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #b12435;
+  font: inherit;
+  font-weight: 700;
+  cursor: crosshair;
+}
+
+.baka-group {
+  display: inline-flex;
+  white-space: nowrap;
+  min-width: 2.7em;
+  vertical-align: baseline;
+}
+
+.title-baka {
+  appearance: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #c32727;
+  font: inherit;
+  line-height: inherit;
+  cursor: crosshair;
+}
+
+.title-baka:hover,
+.title-baka:focus,
+.title-baka:active {
+  color: #c32727;
+  transform: none !important;
+}
+
+
+/* ============================================================
+   SCENE
+   ============================================================ */
+
+.scene {
+  position: absolute;
+  inset: 18% 6% 8%;
+  z-index: 1;
+}
+
+
+/* ============================================================
+   TARGET
+   ============================================================ */
+
+.target {
+  position: absolute;
+  cursor: crosshair;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  transition: opacity .2s, filter .2s;
+}
+
+.target:hover {
+  filter: brightness(1.08);
+}
+
+.target:focus-visible {
+  outline: 2px dashed #222;
+  outline-offset: 5px;
+}
+
+
+/* ============================================================
+   SIGNS
+   ============================================================ */
+
+.sign {
+  font: 700 clamp(42px, 8vw, 88px) "DM Mono", monospace;
+  letter-spacing: -.1em;
+}
+
+.sign.left {
+  left: 14%;
+  top: 45%;
+}
+
+.sign.right {
+  right: 14%;
+  top: 45%;
+}
+
+.room-p .sign.left {
+  left: 30%;
+}
+
+.room-p .sign.right {
+  right: 30%;
+}
+
+
+/* ============================================================
+   OBJECT
+   ============================================================ */
+
+.object {
+  width: 180px;
+  text-align: center;
+  font-size: 21px;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.object .drawing {
+  display: block;
+  height: 120px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+
+/* ============================================================
+   ROOF / ROOM(背景) / ROOT
+   ============================================================ */
+
+.room-background {
+  inset: 0;
+  z-index: 1;
+}
+
+.roof {
+  left: 22%;
+  top: 28%;
+}
+
+.roof .drawing {
+  background: url('image/Roof.jpg') center / contain no-repeat;
+}
+
+.room-icon {
+  left: 50%;
+  top: 34%;
+  transform: translateX(-50%);
+}
+
+.room-icon:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+.room-icon .drawing {
+  border: 5px solid #222;
+  background: linear-gradient(90deg, transparent 48%, #222 49%, #222 52%, transparent 53%);
+}
+
+.root {
+  right: 22%;
+  top: 28%;
+}
+
+.root .drawing {
+  background: url('image/Root.jpg') center / contain no-repeat;
+}
+
+
+/* ============================================================
+   FOOT
+   ============================================================ */
+
+.room-f .foot {
+  left: 50%;
+  top: 25%;
+  transform: translateX(-50%);
+}
+
+.room-f .foot:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+.room-f .foot .drawing {
+  background: url('image/Foot.jpg') center / contain no-repeat;
+}
+
+/* ============================================================
+   MOON / Mの部屋の窓
+   ============================================================ */
+/* ============================================================
+   Mの部屋
+   ============================================================ */
+
+.m-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================================================
+   Mの窓
+   ============================================================ */
+
+.moon-window {
+  position: absolute;
+  left: 50%;
+  top: 27%;
+  width: 240px;
+  height: 150px;
+  transform: translateX(-50%);
+
+  overflow: hidden;
+
+  border: 6px solid #222;
+  border-radius: 4px;
+
+  background: #090d27;
+
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, .7),
+    0 0 18px rgba(30, 35, 90, .35);
+
+  z-index: 2;
+}
+
+
+/* ============================================================
+   夜空
+   ============================================================ */
+
+.moon-sky {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #090d27 0%,
+      #151b46 55%,
+      #30356b 100%
+    );
+
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   星
+   ============================================================ */
+
+.moon-sky::before {
+  content: '';
+
+  position: absolute;
+
+  left: 18%;
+  top: 20%;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-shadow:
+    42px 15px 0 0 #fff,
+    86px -5px 0 0 rgba(255, 255, 255, .8),
+    126px 28px 0 0 #fff,
+    172px 5px 0 0 rgba(255, 255, 255, .7),
+    28px 78px 0 0 rgba(255, 255, 255, .7),
+    108px 65px 0 0 #fff,
+    158px 82px 0 0 rgba(255, 255, 255, .8);
+
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   月
+   ============================================================ */
+
+.moon-window .moon {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 68px;
+  height: 68px;
+
+  transform: translate(-50%, -50%);
+
+  border: 0;
+  border-radius: 50%;
+
+  padding: 0;
+  margin: 0;
+
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      rgba(120, 120, 120, .28) 0 5px,
+      transparent 6px
+    ),
+    radial-gradient(
+      circle at 67% 38%,
+      rgba(120, 120, 120, .22) 0 7px,
+      transparent 8px
+    ),
+    radial-gradient(
+      circle at 45% 68%,
+      rgba(120, 120, 120, .20) 0 5px,
+      transparent 6px
+    ),
+    radial-gradient(
+      circle at 76% 72%,
+      rgba(120, 120, 120, .18) 0 4px,
+      transparent 5px
+    ),
+    #fff4c7;
+
+  box-shadow:
+    0 0 10px rgba(255, 244, 199, .8),
+    0 0 25px rgba(255, 244, 199, .45);
+
+  z-index: 3;
+
+  font-size: 0;
+  color: transparent;
+}
+
+
+/* 月を撃った後、ボタン自体だけ消える */
+.moon-window .moon.shot-target {
+  opacity: 0;
+  transform:
+    translate(-50%, -50%)
+    scale(.8);
+}
+
+
+/* ============================================================
+   「雰囲気を壊す」
+   窓の上
+   ============================================================ */
+
+.m-scene .mood {
+  position: absolute;
+
+  left: 50%;
+  top: 15%;
+
+  transform: translateX(-50%);
+
+  z-index: 5;
+
+  width: auto;
+  height: auto;
+
+  padding: 8px 16px;
+
+  border: 0;
+  background: transparent;
+
+  color: #222;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, .8);
+}
+
+
+/* ============================================================
+   Mの24:00
+   Nの12:00と同じ位置
+   ※ divなので撃てない
+   ============================================================ */
+
+.clock-24 {
+  position: absolute;
+
+  left: 50%;
+  top: 51%;
+
+  transform: translateX(-50%);
+
+  z-index: 6;
+
+  color: #222;
+
+  font-family:
+    'Chakra Petch',
+    sans-serif;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  letter-spacing: .08em;
+
+  white-space: nowrap;
+
+  pointer-events: none;
+
+  user-select: none;
+
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, .8);
+}
+
+
+/* ============================================================
+   Nの窓
+   ============================================================ */
+
+.north-window {
+  position: absolute;
+
+  left: 50%;
+  top: 27%;
+
+  width: 240px;
+  height: 150px;
+
+  transform: translateX(-50%);
+
+  overflow: hidden;
+
+  border: 6px solid #222;
+  border-radius: 4px;
+
+  z-index: 2;
+}
+
+
+/* 青空 */
+
+.north-sky {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #6fc8ff 0%,
+      #a9e0ff 55%,
+      #dff4ff 100%
+    );
+}
+
+
+/* 太陽 */
+
+.north-sun {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 58px;
+  height: 58px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #fff3a6;
+
+  box-shadow:
+    0 0 15px rgba(255, 243, 166, .75),
+    0 0 30px rgba(255, 243, 166, .45);
+}
+
+
+/* ============================================================
+   Nの12:00
+   ============================================================ */
+
+.north-scene .clock {
+  position: absolute;
+
+  left: 50%;
+  top: 51%;
+
+  transform: translateX(-50%);
+
+  z-index: 6;
+
+  font-size: 28px;
+
+  white-space: nowrap;
+}
+
+
+
+
+/* ============================================================
+   スマホ
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .moon-window,
+  .north-window {
+    width: 200px;
+    height: 125px;
+  }
+
+  .moon-window .moon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .m-scene .mood {
+    top: 13%;
+
+    font-size: 19px;
+
+    padding: 6px 12px;
+  }
+
+  .clock-24,
+  .north-scene .clock {
+    top: 51%;
+    font-size: 24px;
+  }
+  .x-share {
+  width: min(390px, 88vw);
+  padding: 15px 16px;
+}
+
+.x-share-icon {
+  width: 38px;
+  height: 38px;
+  flex-basis: 38px;
+  font-size: 20px;
+}
+
+.x-share-label {
+  font-size: 11px;
+}
+
+.x-share-sub {
+  font-size: 8px;
+}
+
+.x-share-arrow {
+  font-size: 21px;
+}
+}
+/* ------------------------------------------------------------
+   月
+   ------------------------------------------------------------ */
+
+.moon::after {
+  content: '';
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 68px;
+  height: 68px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      rgba(120,120,120,.28) 0 5px,
+      transparent 6px
+    ),
+    radial-gradient(
+      circle at 67% 38%,
+      rgba(120,120,120,.22) 0 7px,
+      transparent 8px
+    ),
+    radial-gradient(
+      circle at 45% 68%,
+      rgba(120,120,120,.2) 0 5px,
+      transparent 6px
+    ),
+    radial-gradient(
+      circle at 76% 72%,
+      rgba(120,120,120,.18) 0 4px,
+      transparent 5px
+    ),
+    #fff4c7;
+
+  box-shadow:
+    0 0 10px rgba(255,244,199,.8),
+    0 0 25px rgba(255,244,199,.45);
+
+  pointer-events: none;
+}
+
+/* ============================================================
+   MOOD
+   ============================================================ */
+
+.mood {
+  left: 12%;
+  top: 40%;
+  width: 270px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   TOOL
+   ============================================================ */
+
+.room-t .tool-image {
+  left: 50%;
+  top: 25%;
+  width: 190px;
+  height: 190px;
+  transform: translateX(-50%);
+  background: url('image/Tool.jpg') center / contain no-repeat;
+}
+
+.room-t .tool-image:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* ============================================================
+NORTH WINDOW
+Nの部屋の窓
+============================================================ */
+
+.north-window {
+position: absolute;
+left: 50%;
+top: 22%;
+width: 240px;
+height: 150px;
+transform: translateX(-50%);
+border-radius: 4px;
+overflow: hidden;
+border: 6px solid #222;
+background: #9ddcff;
+z-index: 1;
+box-shadow:
+inset 0 0 25px rgba(0,0,0,.15),
+0 0 15px rgba(0,0,0,.12);
+}
+
+.north-sky {
+position: absolute;
+inset: 0;
+background:
+linear-gradient(
+180deg,
+#5eb9ef 0%,
+#8bd0f5 48%,
+#d9f1ff 100%
+);
+}
+
+/* 雲 */
+.north-sky::before {
+content: '';
+position: absolute;
+left: 15%;
+top: 25%;
+width: 85px;
+height: 25px;
+border-radius: 30px;
+background: rgba(255,255,255,.82);
+box-shadow:
+25px -10px 0 5px rgba(255,255,255,.82),
+52px 2px 0 2px rgba(255,255,255,.82);
+}
+
+.north-sky::after {
+content: '';
+position: absolute;
+right: 10%;
+top: 62%;
+width: 70px;
+height: 20px;
+border-radius: 30px;
+background: rgba(255,255,255,.65);
+box-shadow:
+18px -8px 0 3px rgba(255,255,255,.65),
+38px 1px 0 1px rgba(255,255,255,.65);
+}
+
+/* 太陽 */
+.north-sun {
+position: absolute;
+top: 18px;
+right: 22px;
+left: auto;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+background: #ffe27a;
+box-shadow: 0 0 14px rgba(255,226,122,.9);
+}
+
+/* ============================================================
+CLOCK
+Nの部屋：窓の下、ドアの上
+============================================================ */
+
+.clock {
+appearance: none;
+left: 50%;
+top: 51%;
+width: auto;
+height: auto;
+padding: 10px 22px;
+margin: 0;
+transform: translateX(-50%);
+border: 0;
+border-radius: 0;
+display: block;
+font: 700 34px "DM Mono", monospace;
+background: transparent;
+color: #222;
+line-height: 1;
+-webkit-appearance: none;
+z-index: 3;
+}
+
+.clock {
+transform: translateX(-50%) scale(1.05);
+}
+
+/* ============================================================
+   DOOR TARGET
+   ============================================================ */
+
+.door-target {
+  left: 50%;
+  top: 42%;
+  transform: translateX(-50%);
+  font: 700 35px "DM Mono";
+  padding: 30px 18px;
+  border: 5px solid #222;
+  background: rgba(255,255,255,.15);
+}
+
+.door-target:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+
+/* ============================================================
+   DOOR
+   ============================================================ */
+
+.door {
+  position: absolute;
+  cursor: pointer;
+  width: 130px;
+  height: 230px;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+  background: #292522;
+  border: 5px solid #554238;
+  border-bottom: 0;
+  z-index: 10;
+  box-shadow: inset 0 0 0 2px #171513;
+  animation: arrive .25s ease-out;
+}
+
+.door:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+.door::before {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 1px solid #8c7665;
+}
+
+.door small {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  font: 10px "DM Mono", monospace;
+  letter-spacing: .15em;
+}
+
+.knob {
+  position: absolute;
+  right: 14px;
+  top: 52%;
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+}
+
+
+/* ============================================================
+   DOOR BREAK
+   ============================================================ */
+
+.room-d .door.broken {
+  background: #000;
+  border: 0;
+  opacity: 1;
+  box-shadow:
+    inset 0 0 35px rgba(0,0,0,1),
+    0 0 35px rgba(0,0,0,.85);
+  animation: door-break .28s ease-out forwards;
+}
+
+.room-d .door.broken::before,
+.room-d .door.broken .knob,
+.room-d .door.broken small {
+  display: none;
+}
+
+@keyframes door-break {
+  0% {
+    transform: translateX(-50%) scale(.85);
+    opacity: .4;
+  }
+  60% {
+    transform: translateX(-50%) scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* ============================================================
+   INDICATOR
+   ============================================================ */
+
+.loop-indicator {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 420px;
+  text-align: center;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.indicator-row {
+  display: grid;
+  grid-template-columns: 130px 160px 130px;
+  align-items: center;
+}
+
+.indicator-side {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.indicator-side.left {
+  justify-content: flex-end;
+  margin-right: -18px;
+}
+
+.indicator-side.right {
+  justify-content: flex-start;
+  margin-left: -18px;
+}
+
+.indicator-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infinity-mark {
+  width: 160px;
+  height: 92px;
+  background: url('image/LOOP.png') center / contain no-repeat;
+}
+
+.hint-image,
+.arrow-image {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.period-message {
+  font-family:
+    'Chakra Petch',
+    sans-serif;
+
+  font-size: 34px;
+  font-weight: 700;
+
+  letter-spacing: .08em;
+
+  color: #222;
+
+  white-space: nowrap;
+}
+
+/* ============================================================
+   PERIOD
+   ============================================================ */
+.period-loop {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.period-p {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+/* ============================================================
+   PERIOD TARGET
+   Pの右下＝本来ピリオドが来る位置
+   見た目は完全に透明、当たり判定だけ存在
+   ============================================================ */
+
+.period-loop {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.period-p {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.period-target {
+  position: absolute;
+
+  /* Pの右下 */
+  right: -1.0em;
+  bottom: -0.18em;
+
+  width: 40px;
+  height: 40px;
+
+  padding: 0;
+  margin: 0;
+
+  border: 0;
+  background: transparent;
+
+  cursor: crosshair;
+
+  opacity: 0;
+  z-index: 100;
+
+  box-sizing: border-box;
+}
+/* ============================================================
+   MESSAGE
+   ============================================================ */
+
+.message {
+  position: absolute;
+  top: 1.8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90%, 900px);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: .06em;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.message strong {
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   SHOT ANIMATION
+   ============================================================ */
+
+.shot-target {
+  pointer-events: none;
+  animation: target-break .18s ease-out forwards;
+}
+
+@keyframes target-break {
+  0% {
+    opacity: 1;
+    filter: none;
+  }
+  45% {
+    opacity: .75;
+    filter: brightness(2);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(3);
+  }
+}
+
+.room-f .foot.shot-target {
+  animation: foot-target-break .18s ease-out forwards;
+}
+
+@keyframes foot-target-break {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    filter: none;
+  }
+  45% {
+    opacity: .75;
+    transform: translateX(-50%) scale(1.08);
+    filter: brightness(2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(.7);
+    filter: brightness(3);
+  }
+}
+
+.room-t .tool-image.shot-target {
+  animation: tool-target-break .18s ease-out forwards;
+}
+
+@keyframes tool-target-break {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    filter: none;
+  }
+  45% {
+    opacity: .75;
+    transform: translateX(-50%) scale(1.08);
+    filter: brightness(2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(.7);
+    filter: brightness(3);
+  }
+}
+
+.room-n .clock.shot-target {
+  animation: clock-target-break .18s ease-out forwards;
+}
+
+@keyframes clock-target-break {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: none;
+  }
+  45% {
+    opacity: .75;
+    transform: translate(-50%, -50%) scale(1.08);
+    filter: brightness(2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.7);
+    filter: brightness(3);
+  }
+}
+
+
+/* ============================================================
+   M ROOM
+   ============================================================ */
+
+.room-m {
+  background: linear-gradient(145deg, #4c3b68, #ba7896 48%, #7779af);
+  color: #fff;
+}
+
+.room-m::before {
+  background: rgba(255,255,255,.16);
+}
+
+.room-m .wall-title {
+  text-shadow: 0 3px 20px #443452;
+}
+
+
+/* ============================================================
+   CLEAR
+   ============================================================ */
+
+.room-c {
+  background: radial-gradient(circle, #fff8bd, #e4a82c 55%, #54220b);
+  color: #fff;
+}
+
+.clear-scene {
+  position: absolute;
+  inset: 15% 5%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  z-index: 20;
+}
+
+.clear-scene h2 {
+  margin: 0;
+  font: 700 clamp(70px, 17vw, 180px) "Space Grotesk", sans-serif;
+  letter-spacing: -.08em;
+  text-shadow:
+    0 6px 0 #6b250b,
+    0 0 38px #fff8a4;
+}
+
+.clear-scene p {
+  font: 15px "DM Mono", monospace;
+  letter-spacing: .16em;
+}
+
+
+/* ============================================================
+   ARRIVE
+   ============================================================ */
+
+@keyframes arrive {
+  from {
+    transform: translate(-50%, 150px);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 620px) {
+
+  .intro-card {
+    padding: 36px 26px;
+  }
+
+  .intro-logo img {
+    width: 100%;
+  }
+
+  .object {
+    transform: scale(.75);
+  }
+
+  .roof {
+    left: 8%;
+  }
+
+  .root {
+    right: 8%;
+  }
+
+  .door {
+    width: 95px;
+    height: 190px;
+  }
+
+  .clock {
+    left: 30%;
+    width: 230px;
+  }
+
+  .loop-indicator {
+    width: 330px;
+  }
+
+  .indicator-row {
+    grid-template-columns: 95px 140px 95px;
+  }
+
+  .loop-indicator .infinity-mark {
+    width: 140px;
+  }
+
+  .indicator-side {
+    gap: 4px;
+  }
+
+  .hint-image,
+  .arrow-image {
+    width: 38px;
+    height: 38px;
+  }
+
+  .period-message {
+    font-size: 22px;
+  }
+#trail {
+  max-width: 72vw;
+}
+
+.trail-dots {
+  gap: 6px;
+}
+
+.trail-dot {
+  width: 10px;
+  height: 10px;
+  flex-basis: 10px;
+}
+@media (max-width: 420px) {
+  .trail-dots {
+    gap: 5px;
+  }
+
+  .trail-dot {
+    width: 9px;
+    height: 9px;
+    flex-basis: 9px;
+  }
+}
+}
+/* ============================================================
+   X SHARE BUTTON
+   ============================================================ */
+
+.x-share {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: min(420px, 88vw);
+
+  margin: 42px auto 0;
+
+  padding: 18px 20px;
+
+  color: #fff;
+  background: #111;
+
+  border: 1px solid rgba(255,255,255,.22);
+
+  text-decoration: none;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.25);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+.x-share::before {
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255,255,255,.08) 45%,
+      transparent 65%
+    );
+
+  transform: translateX(-120%);
+
+  transition:
+    transform .5s ease;
+}
+
+.x-share:hover {
+  transform:
+    translateY(-4px);
+
+  background: #050505;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.38);
+}
+
+.x-share:hover::before {
+  transform:
+    translateX(120%);
+}
+
+.x-share:active {
+  transform:
+    translateY(-1px);
+}
+
+
+/* Xロゴ */
+
+.x-share-icon {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  border: 1px solid rgba(255,255,255,.3);
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+/* 中央テキスト */
+
+.x-share-content {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  margin-left: 15px;
+
+  text-align: left;
+}
+
+.x-share-label {
+  font:
+    700 13px
+    "Space Grotesk",
+    sans-serif;
+
+  letter-spacing: .14em;
+}
+
+.x-share-sub {
+  margin-top: 4px;
+
+  font:
+    9px
+    "DM Mono",
+    monospace;
+
+  letter-spacing: .12em;
+
+  color: rgba(255,255,255,.55);
+}
+
+
+/* 右矢印 */
+
+.x-share-arrow {
+  position: relative;
+
+  font:
+    24px
+    "Space Grotesk",
+    sans-serif;
+
+  font-weight: 400;
+
+  transition:
+    transform .2s ease;
+}
+
+.x-share:hover .x-share-arrow {
+  transform:
+    translate(4px, -4px);
+}/* ============================================================
+   BULLET HOLE
+   黒い弾痕 + 周囲のひび割れ
+   ============================================================ */
+
+.bullet {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 4;
+
+  /* 中央の黒い弾痕 */
+  background:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      #000 22%,
+      #111 30%,
+      rgba(0, 0, 0, .75) 38%,
+      transparent 42%
+    );
+
+  border-radius: 50%;
+
+  animation: bullet-hole-in .14s ease-out forwards;
+}
+
+
+/* ============================================================
+   ひび割れ
+   ============================================================ */
+
+.bullet::before {
+  content: '';
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 100%;
+  height: 100%;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    /* 上 */
+    linear-gradient(
+      78deg,
+      transparent 47%,
+      rgba(0,0,0,.75) 48%,
+      rgba(0,0,0,.75) 51%,
+      transparent 52%
+    ),
+
+    /* 右上 */
+    linear-gradient(
+      135deg,
+      transparent 48%,
+      rgba(0,0,0,.65) 49%,
+      rgba(0,0,0,.65) 51%,
+      transparent 52%
+    ),
+
+    /* 右 */
+    linear-gradient(
+      168deg,
+      transparent 48%,
+      rgba(0,0,0,.75) 49%,
+      rgba(0,0,0,.75) 51%,
+      transparent 52%
+    ),
+
+    /* 下 */
+    linear-gradient(
+      25deg,
+      transparent 48%,
+      rgba(0,0,0,.7) 49%,
+      rgba(0,0,0,.7) 51%,
+      transparent 52%
+    ),
+
+    /* 左下 */
+    linear-gradient(
+      315deg,
+      transparent 48%,
+      rgba(0,0,0,.65) 49%,
+      rgba(0,0,0,.65) 51%,
+      transparent 52%
+    );
+
+  opacity: .9;
+}
+
+
+/* ============================================================
+   さらに細かいひび
+   ============================================================ */
+
+.bullet::after {
+  content: '';
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 30px;
+  height: 30px;
+
+  transform: translate(-50%, -50%) rotate(23deg);
+
+  background:
+    linear-gradient(
+      22deg,
+      transparent 45%,
+      rgba(0,0,0,.55) 46%,
+      rgba(0,0,0,.55) 48%,
+      transparent 49%
+    ),
+    linear-gradient(
+      112deg,
+      transparent 46%,
+      rgba(0,0,0,.5) 47%,
+      rgba(0,0,0,.5) 49%,
+      transparent 50%
+    ),
+    linear-gradient(
+      202deg,
+      transparent 46%,
+      rgba(0,0,0,.45) 47%,
+      rgba(0,0,0,.45) 49%,
+      transparent 50%
+    );
+
+  opacity: .8;
+}
+
+
+/* ============================================================
+   弾痕が現れる瞬間
+   ============================================================ */
+
+@keyframes bullet-hole-in {
+
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.25);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
