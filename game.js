@@ -564,13 +564,14 @@ function render() {
   // ==========================================================
   // TITLE
   // ==========================================================
-
   if (current === 'L') {
 
     title.innerHTML = `
       <span class="title-fixed">
         RE: Break the
       </span>
+
+      <span>&nbsp;</span>
 
       <button
         class="title-loop"
@@ -589,8 +590,9 @@ function render() {
         '<button class="title-baka" aria-label="k">k</button>' +
       '</span>' +
       '<span>&nbsp;</span>' +
-      '<button class="title-baka title-baka-last" aria-label="a">a</button> ' +
-      '<span class="title-fixed">LOOP</span>';
+      '<button class="title-baka title-baka-last" aria-label="a">a</button>' + 
+'<span>&nbsp;</span>' + 
+'<span class="title-fixed">LOOP</span>'; 
 
   } else if (
     periodAvailable &&
