@@ -2516,3 +2516,110 @@ h1 {
     height: 62px;
   }
 }
+/* ============================================================
+   RESET
+   常にブラウザ画面の一番下に固定
+   ============================================================ */
+
+.game-page #reset {
+  position: fixed !important;
+
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+
+  bottom: 16px !important;
+
+  transform: translateX(-50%) !important;
+
+  width: 190px !important;
+  height: 58px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  z-index: 9999 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  font:
+    700 16px "DM Mono",
+    monospace !important;
+
+  letter-spacing: .12em;
+
+  color: #fff;
+  background: #1b1b1b;
+
+  cursor: pointer;
+}
+
+.game-page #reset:hover {
+  transform: translateX(-50%) !important;
+  background: #aa3030;
+}
+
+.game-page #reset:active {
+  transform:
+    translateX(-50%)
+    scale(.97) !important;
+}
+
+/* ============================================================
+   MOBILE RESET
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .game-page #reset {
+    position: fixed !important;
+
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+
+    bottom: 14px !important;
+
+    width: 200px !important;
+    height: 60px !important;
+
+    transform:
+      translateX(-50%) !important;
+
+    z-index: 9999 !important;
+
+    font-size: 17px !important;
+  }
+
+  .game-page #reset:hover {
+    transform:
+      translateX(-50%) !important;
+  }
+}
+
+/* ============================================================
+   VERY SMALL SCREEN
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .game-page #reset {
+    position: fixed !important;
+
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+
+    bottom: 12px !important;
+
+    width: 200px !important;
+    height: 60px !important;
+
+    transform:
+      translateX(-50%) !important;
+
+    z-index: 9999 !important;
+  }
+}
