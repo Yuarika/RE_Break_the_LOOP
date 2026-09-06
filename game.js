@@ -1105,7 +1105,7 @@ function shoot(
 
       message.innerHTML =
         '<strong>長いループを完成させた！</strong><br>' +
-        'あとは終止符をうつだけだ';
+        'あとはピリオドをうつだけだ';
 
 
       door.classList.add(
@@ -1587,7 +1587,7 @@ restartAfterLongLoop = false;
 
 
   message.innerHTML =
-    '<strong>終止符がうたれた！</strong><br>' +
+    '<strong>ピリオドがうたれた！</strong><br>' +
     '扉の向こうでループが終わる。';
 
 
