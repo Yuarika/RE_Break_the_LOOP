@@ -309,14 +309,12 @@ const rooms = {
 
   // ----------------------------------------------------------
   // C
-  // ----------------------------------------------------------
+ ｗ // ----------------------------------------------------------
   C: () => {
   // =========================================
   // クリア画面のリンク設定
   // =========================================
 
-  // 作者のXアカウント
-  const authorXUrl = 'https://x.com/yuarikaa';
 
   // このサイトの告知ポスト
   // ポスト公開後、このURLだけ変更してください。
@@ -350,22 +348,23 @@ const rooms = {
       </a>
 
 
-      <!-- 作者のXアカウント -->
-      <a
-        class="x-share"
-        target="_blank"
-        rel="noopener"
-        href="${authorXUrl}"
-      >
-        <span class="x-share-icon">𝕏</span>
+<!-- 作者のプロフィール -->
+<a
+  class="x-share"
+  target="_blank"
+  rel="noopener"
+  href="https://yuarika.github.io/Yuarika_Profile/"
+>
+  <span class="x-share-icon">↗</span>
 
-        <span class="x-share-content">
-          <span class="x-share-label">作者のXアカウント</span>
-          <span class="x-share-sub">@yuarikaa</span>
-        </span>
+  <span class="x-share-content">
+    <span class="x-share-label">作者のプロフィール</span>
+    <span class="x-share-sub">YUARIKA PROFILE</span>
+  </span>
 
-        <span class="x-share-arrow">↗</span>
-      </a>
+  <span class="x-share-arrow">↗</span>
+</a>
+
 
 
       <!-- 告知ポスト -->
