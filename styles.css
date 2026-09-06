@@ -2585,7 +2585,7 @@ h1 {
   position: fixed;
   inset: 0;
 
-  background-image: url("./image/Background.png");
+  background-image: url("../image/Background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2606,4 +2606,33 @@ h1 {
 
   z-index: -1;
   pointer-events: none;
+}/* ============================================================
+   WALL ART
+   壁に描かれているように背景画像を配置
+   ============================================================ */
+
+#room {
+  position: relative;
+}
+
+/* 壁に描かれた画像 */
+#wall-background {
+  position: absolute;
+
+  width: 35%;
+  height: 35%;
+
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  background-image: url("./image/Background.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0.25;
+
+  pointer-events: none;
+  z-index: 1;
 }
