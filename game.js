@@ -16,7 +16,7 @@ let locked = false;
 let restartOnNext = null;
 let loopRange = null;
 let doorDestroyed = false;
-
+let moodBroken = false;
 let longLoopArrivalMessagePending = false;
 
 /*
@@ -553,12 +553,16 @@ function render() {
   message.textContent = '';
 
 
-  room.className =
-    `room room-${current.toLowerCase()}`;
+  room.className = `room room-${current.toLowerCase()}`;
+room.style.background = '';
+room.style.color = '';
 
+if (current === 'M' && moodBroken) {
+  room.style.background = 'linear-gradient(115deg, #fafafa, #e7e7e5)';
+  room.style.color = '#151515';
+}
 
-  title.className =
-    'wall-title';
+title.className = 'wall-title';
 
 
   // ==========================================================
@@ -1259,11 +1263,10 @@ function shoot(
 
 
   if (word === 'mood') {
-
-    room.classList.add(
-      'mood-broken'
-    );
-  }
+  moodBroken = true;
+  room.style.background = 'linear-gradient(115deg, #fafafa, #e7e7e5)';
+  room.style.color = '#151515';
+}
 
 
   updateTrail();
@@ -1919,7 +1922,7 @@ function reset(
   locked = false;
 
   doorDestroyed = false;
-
+moodBroken = false;
   indicatorState = 'none';
 
 
