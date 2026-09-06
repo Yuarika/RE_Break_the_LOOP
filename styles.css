@@ -2436,7 +2436,7 @@ h1 {
      ---------------------------------------------------------- */
 
   .game-page .door {
-    bottom: 30px !important;
+    bottom: 80px !important;
 
     width: 130px !important;
     height: 230px !important;
@@ -2566,6 +2566,6 @@ h1 {
   /* DOOR */
 
   .game-page .door {
-    bottom: 25px !important;
+    bottom: 75px !important;
   }
 }
