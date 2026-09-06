@@ -2366,3 +2366,206 @@ h1 {
     font-size: 23px !important;
   }
 }
+/* ============================================================
+   FINAL MOBILE ROOM LAYOUT FIX
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  /* ----------------------------------------------------------
+     スマホでは部屋そのものを縦長にする
+     → ドアをかなり下へ配置できる
+     → 必要ならページをスクロールできる
+     ---------------------------------------------------------- */
+
+  .game-page .room {
+    height: 1050px !important;
+    min-height: 1050px !important;
+    overflow: hidden;
+  }
+
+  /* ----------------------------------------------------------
+     R ROOM
+     ROOF
+     ROOT
+
+     ROOFを上
+     ROOTをそのすぐ下
+     ---------------------------------------------------------- */
+
+  .game-page .room-r .roof {
+    left: 50% !important;
+    right: auto !important;
+
+    top: 2% !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 5 !important;
+  }
+
+  .game-page .room-r .roof:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+
+
+  .game-page .room-r .root {
+    left: 50% !important;
+    right: auto !important;
+
+    /*
+     * ROOFのすぐ下
+     * ただし画像120px＋文字の高さを考えて
+     * 十分に間隔を取る
+     */
+    top: 27% !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 5 !important;
+  }
+
+  .game-page .room-r .root:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     DOOR
+     スマホではかなり下へ
+     ---------------------------------------------------------- */
+
+  .game-page .door {
+    bottom: 30px !important;
+
+    width: 130px !important;
+    height: 230px !important;
+
+    z-index: 10 !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     F ROOM
+     FOOTを上側へ
+     ---------------------------------------------------------- */
+
+  .game-page .room-f .foot {
+    left: 50% !important;
+    top: 3% !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 5 !important;
+  }
+
+  .game-page .room-f .foot:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     T ROOM
+     TOOLを上側へ
+     ---------------------------------------------------------- */
+
+  .game-page .room-t .tool-image {
+    left: 50% !important;
+    top: 3% !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 5 !important;
+  }
+
+  .game-page .room-t .tool-image:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     M ROOM
+     24:00
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .clock-24 {
+    top: 250px !important;
+    z-index: 20 !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     N ROOM
+     12:00
+     ---------------------------------------------------------- */
+
+  .game-page .room-n .clock {
+    top: 230px !important;
+    z-index: 20 !important;
+  }
+}
+
+
+/* ============================================================
+   VERY SMALL SMARTPHONE
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .game-page .room {
+    height: 1050px !important;
+    min-height: 1050px !important;
+  }
+
+
+  /* R : ROOF */
+
+  .game-page .room-r .roof {
+    top: 1% !important;
+  }
+
+
+  /* R : ROOT
+     ROOFの下に配置 */
+
+  .game-page .room-r .root {
+    top: 28% !important;
+  }
+
+
+  /* F */
+
+  .game-page .room-f .foot {
+    top: 2% !important;
+  }
+
+
+  /* T */
+
+  .game-page .room-t .tool-image {
+    top: 2% !important;
+  }
+
+
+  /* M */
+
+  .game-page .room-m .clock-24 {
+    top: 245px !important;
+    font-size: 23px !important;
+  }
+
+
+  /* N */
+
+  .game-page .room-n .clock {
+    top: 225px !important;
+    font-size: 23px !important;
+  }
+
+
+  /* DOOR */
+
+  .game-page .door {
+    bottom: 25px !important;
+  }
+}
