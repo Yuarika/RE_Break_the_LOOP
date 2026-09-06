@@ -2728,3 +2728,176 @@ body.game-page {
 .clear-scene .announcement-link[href="#"]:active {
   pointer-events: none;
 }
+/* ============================================================
+   FINAL MOBILE FIX
+   ∞ と ? の左右対称配置
+   Mの部屋の24:00を完全中央
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  /* ----------------------------------------------------------
+     LOOP INDICATOR
+     左 ? ←→ ∞ ←→ ? を完全にバランス配置
+     ---------------------------------------------------------- */
+
+  .game-page .loop-indicator {
+    left: 50% !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    padding: 0 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .game-page .indicator-row {
+    width: 100% !important;
+
+    display: grid !important;
+
+    /*
+      左右を同じ幅にする。
+      中央を∞専用の幅にすることで、
+      ? と ∞ の距離も左右で揃う。
+    */
+    grid-template-columns:
+      minmax(0, 1fr)
+      80px
+      minmax(0, 1fr) !important;
+
+    column-gap: 18px !important;
+
+    align-items: center !important;
+    justify-items: center !important;
+  }
+
+  /* 左側 */
+  .game-page .indicator-side.left {
+    width: 100% !important;
+    height: 80px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* 中央 */
+  .game-page .indicator-center {
+    width: 80px !important;
+    height: 80px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* 右側 */
+  .game-page .indicator-side.right {
+    width: 100% !important;
+    height: 80px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* ? と矢印 */
+  .game-page .hint-image,
+  .game-page .arrow-image {
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+  }
+
+  /* ∞ */
+  .game-page .infinity-mark {
+    width: 80px !important;
+    height: 80px !important;
+    flex: 0 0 80px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     Mの部屋：24:00
+     常に画面の真ん中
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .clock-24 {
+    position: absolute !important;
+
+    left: 50% !important;
+    right: auto !important;
+
+    top: 250px !important;
+    bottom: auto !important;
+
+    width: max-content !important;
+    height: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    transform: translateX(-50%) !important;
+
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    z-index: 50 !important;
+  }
+
+}
+
+
+/* ============================================================
+   とても小さいスマートフォン
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .game-page .loop-indicator {
+    padding: 0 8px !important;
+  }
+
+  .game-page .indicator-row {
+    grid-template-columns:
+      minmax(0, 1fr)
+      68px
+      minmax(0, 1fr) !important;
+
+    column-gap: 12px !important;
+  }
+
+  .game-page .indicator-center {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  .game-page .infinity-mark {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  .game-page .indicator-side.left,
+  .game-page .indicator-side.right {
+    height: 68px !important;
+  }
+
+  .game-page .hint-image,
+  .game-page .arrow-image {
+    width: 34px !important;
+    height: 34px !important;
+    flex-basis: 34px !important;
+  }
+
+  .game-page .room-m .clock-24 {
+    left: 50% !important;
+    top: 245px !important;
+    transform: translateX(-50%) !important;
+  }
+
+}
