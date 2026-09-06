@@ -1076,22 +1076,32 @@ function shoot(
     return true;
   }
 
-// ========================================================
-// 同じ単語を再び撃った
-// ========================================================
 
-if (
-  used.includes(word)
-) {
+  // ==========================================================
+  // 同じ単語を再び撃った
+  // ==========================================================
 
-  const first =
-    used.indexOf(word);
+  if (
+    used.includes(word)
+  ) {
 
-  // 2回目の単語は履歴に追加しない
-  loopRange = [
-    first,
-    used.length - 1
-  ];
+    const first =
+      used.indexOf(word);
+
+
+
+
+    loopRange = [
+      first,
+      used.length - 1
+    ];
+
+
+    const isLongLoop =
+      checkLongLoop(
+        first,
+        word
+      );
 
 
     // ========================================================
@@ -1264,8 +1274,6 @@ if (
 
   return true;
 }
-
-
 // ============================================================
 // 長いループ判定
 // ============================================================
@@ -1275,8 +1283,10 @@ function checkLongLoop(
   word
 ) {
 
+  // 2回目の単語は used に追加しないので、
+  // 最後の1個を仮想的に足して判定する
   const segLength =
-    used.length - first;
+    used.length - first + 1;
 
 
   if (
@@ -1310,8 +1320,16 @@ function checkLongLoop(
       ];
 
 
+    // 最後だけ、実際には used に入っていない
+    // 2回目の単語を使う
+    const actual =
+      i === clearRoute.length
+        ? word
+        : used[first + i];
+
+
     if (
-      used[first + i] !==
+      actual !==
       expected
     ) {
 
@@ -1322,7 +1340,6 @@ function checkLongLoop(
 
   return true;
 }
-
 
 // ============================================================
 // 撃った直後のインジケーター状態
