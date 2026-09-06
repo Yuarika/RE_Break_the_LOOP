@@ -415,7 +415,7 @@ h1 {
 }
 
 .roof .drawing {
-  background: url('image/Roof.jpg') center / contain no-repeat;
+  background: url('image/Roof.png') center / contain no-repeat;
 }
 
 .room-icon {
@@ -439,7 +439,7 @@ h1 {
 }
 
 .root .drawing {
-  background: url('image/Root.jpg') center / contain no-repeat;
+  background: url('image/Root.png') center / contain no-repeat;
 }
 
 
@@ -458,7 +458,7 @@ h1 {
 }
 
 .room-f .foot .drawing {
-  background: url('image/Foot.jpg') center / contain no-repeat;
+  background: url('image/Foot.png') center / contain no-repeat;
 }
 
 /* ============================================================
@@ -904,7 +904,7 @@ h1 {
   width: 190px;
   height: 190px;
   transform: translateX(-50%);
-  background: url('image/Tool.jpg') center / contain no-repeat;
+  background: url('image/Tool.png') center / contain no-repeat;
 }
 
 .room-t .tool-image:hover {
@@ -1841,4 +1841,890 @@ transform: translateX(-50%) scale(1.05);
   border-color: #e53935 !important;
   box-shadow:
     0 0 8px rgba(229, 57, 53, 0.8);
+}
+/* ============================================================
+   RESPONSIVE FIX
+   スマートフォン・ブラウザ拡大時の重なり対策
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   ゲーム全体
+   ------------------------------------------------------------ */
+
+html {
+  overflow-x: hidden;
+}
+
+body.game-page {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+/* ------------------------------------------------------------
+   HUD
+   上部9個の丸を常に画面中央へ
+   ------------------------------------------------------------ */
+
+.game-page .hud {
+  position: relative;
+}
+
+.game-page #trail {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  margin: 0;
+  padding: 0;
+
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  white-space: nowrap;
+}
+
+.game-page .trail-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* ------------------------------------------------------------
+   ROOM
+   画面高さに依存しすぎないようにする
+   拡大時は縦方向にスクロール可能
+   ------------------------------------------------------------ */
+
+.game-page .room {
+  height: auto;
+  min-height: 760px;
+
+  position: relative;
+}
+
+
+/* ------------------------------------------------------------
+   SCENE
+   上下に十分な余白を確保
+   ------------------------------------------------------------ */
+
+.game-page .scene {
+  position: absolute;
+
+  top: 170px;
+  right: 6%;
+  bottom: 100px;
+  left: 6%;
+
+  min-height: 490px;
+}
+
+
+/* ------------------------------------------------------------
+   P ROOM
+   ???L / ???R
+   中央に寄りすぎないよう左右へ広げる
+   ------------------------------------------------------------ */
+
+.game-page .room-p .scene {
+  top: 170px;
+  bottom: 100px;
+}
+
+.game-page .room-p .sign.left {
+  left: 8%;
+}
+
+.game-page .room-p .sign.right {
+  right: 8%;
+}
+
+
+/* ------------------------------------------------------------
+   R ROOM
+   ROOF / ROOT
+   中央で重ならないよう左右へ大きく離す
+   ------------------------------------------------------------ */
+
+.game-page .room-r .scene {
+  top: 170px;
+  bottom: 100px;
+}
+
+.game-page .room-r .roof {
+  left: 20%;
+}
+
+.game-page .room-r .root {
+  right: 20%;
+}
+
+
+/* ------------------------------------------------------------
+   M ROOM
+   24:00
+   左寄りにならないよう中央基準にする
+   ------------------------------------------------------------ */
+
+.game-page .room-m .clock-24 {
+  left: 50%;
+  right: auto;
+
+  transform: translateX(-50%);
+}
+
+
+/* ------------------------------------------------------------
+   タイトル
+   拡大時に他要素と詰まりすぎないようにする
+   ------------------------------------------------------------ */
+
+.game-page .wall-title {
+  top: 55px;
+
+  width: 90%;
+  max-width: 1100px;
+
+  z-index: 20;
+}
+
+
+/* ------------------------------------------------------------
+   インジケーター
+   タイトルやシーンと十分離す
+   ------------------------------------------------------------ */
+
+.game-page .loop-indicator {
+  top: 150px;
+  z-index: 15;
+}
+
+
+/* ------------------------------------------------------------
+   メッセージ
+   上部の要素と重ならないようにする
+   ------------------------------------------------------------ */
+
+.game-page .message {
+  top: 105px;
+
+  width: min(90%, 900px);
+
+  z-index: 30;
+}
+
+
+/* ============================================================
+   SMARTPHONE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  /* ----------------------------------------------------------
+     HUD
+     ---------------------------------------------------------- */
+
+  .game-page .hud {
+    height: 58px;
+  }
+
+  .game-page #trail {
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: max-content;
+  }
+
+  .game-page .trail-dots {
+    gap: 6px;
+  }
+
+  .game-page .trail-dot {
+    width: 9px;
+    height: 9px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ROOM
+     スマホでは十分な縦長を確保
+     ---------------------------------------------------------- */
+
+  .game-page .room {
+    min-height: 820px;
+    height: 820px;
+  }
+
+
+  /* ----------------------------------------------------------
+     TITLE
+     ---------------------------------------------------------- */
+
+  .game-page .wall-title {
+    top: 42px;
+
+    width: 94%;
+
+    font-size: clamp(22px, 7vw, 34px);
+
+    line-height: 1.2;
+  }
+
+
+  /* ----------------------------------------------------------
+     INDICATOR
+     タイトルから十分下へ
+     ---------------------------------------------------------- */
+
+  .game-page .loop-indicator {
+    top: 145px;
+
+    width: 94%;
+    max-width: 420px;
+  }
+
+
+  .game-page .indicator-row {
+    width: 100%;
+
+    grid-template-columns:
+      minmax(90px, 1fr)
+      minmax(70px, 100px)
+      minmax(90px, 1fr);
+
+    column-gap: 10px;
+  }
+
+
+  /* ----------------------------------------------------------
+     MESSAGE
+     ---------------------------------------------------------- */
+
+  .game-page .message {
+    top: 110px;
+
+    width: 92%;
+
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+
+  /* ----------------------------------------------------------
+     SCENE
+     ---------------------------------------------------------- */
+
+  .game-page .scene {
+    top: 215px;
+    right: 3%;
+    bottom: 80px;
+    left: 3%;
+
+    min-height: 520px;
+  }
+
+
+  /* ==========================================================
+     P ROOM
+     ???L / ???R
+     ========================================================== */
+
+  .game-page .room-p .scene {
+    top: 215px;
+  }
+
+  .game-page .room-p .sign.left {
+    left: 5%;
+  }
+
+  .game-page .room-p .sign.right {
+    right: 5%;
+  }
+
+
+  /* ==========================================================
+     R ROOM
+     ROOF / ROOT
+     ========================================================== */
+
+  .game-page .room-r .scene {
+    top: 215px;
+  }
+
+  .game-page .room-r .roof {
+    left: 8%;
+  }
+
+  .game-page .room-r .root {
+    right: 8%;
+  }
+
+
+  /* ==========================================================
+     M ROOM
+     24:00
+     ========================================================== */
+
+  .game-page .room-m .clock-24 {
+    left: 50%;
+    right: auto;
+
+    transform: translateX(-50%);
+  }
+
+
+  /* ----------------------------------------------------------
+     インジケーター内の画像
+     ---------------------------------------------------------- */
+
+  .game-page .hint-image,
+  .game-page .arrow-image {
+    width: 40px;
+    height: 40px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ∞
+     ---------------------------------------------------------- */
+
+  .game-page .infinity-mark {
+    width: 70px;
+    height: 70px;
+  }
+
+
+  /* ----------------------------------------------------------
+     ドア
+     ---------------------------------------------------------- */
+
+  .game-page .door {
+    bottom: 35px;
+  }
+}
+
+
+/* ============================================================
+   VERY SMALL SMARTPHONES
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .game-page .room {
+    min-height: 860px;
+    height: 860px;
+  }
+
+
+  .game-page .trail-dots {
+    gap: 5px;
+  }
+
+  .game-page .trail-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+
+  .game-page .wall-title {
+    font-size: 21px;
+  }
+
+
+  .game-page .loop-indicator {
+    top: 140px;
+  }
+
+
+  .game-page .indicator-row {
+    column-gap: 4px;
+  }
+
+
+  .game-page .hint-image,
+  .game-page .arrow-image {
+    width: 34px;
+    height: 34px;
+  }
+
+
+  .game-page .infinity-mark {
+    width: 60px;
+    height: 60px;
+  }
+
+
+  .game-page .room-p .sign.left {
+    left: 1%;
+  }
+
+  .game-page .room-p .sign.right {
+    right: 1%;
+  }
+
+
+  .game-page .room-r .roof {
+    left: 2%;
+  }
+
+  .game-page .room-r .root {
+    right: 2%;
+  }
+}/* ============================================================
+   タイトルを画面中央に固定
+   ============================================================ */
+
+.game-page .wall-title {
+  position: absolute;
+  left: 50% !important;
+  right: auto !important;
+  width: 90% !important;
+  max-width: 1100px;
+  transform: translateX(-50%) !important;
+
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+/* タイトル内の文字・ボタンも中央基準にする */
+.game-page .wall-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+/* ============================================================
+   FINAL LAYOUT FIX
+   ドア・RESET・Mの窓・24:00・雰囲気を壊す
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   ゲーム画面
+   ------------------------------------------------------------ */
+
+.game-page {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.game-page .room {
+  position: relative;
+  height: max(900px, calc(100vh - 58px));
+  min-height: 900px;
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   RESET
+   ドアの「下」に配置する
+   ============================================================ */
+
+.game-page #reset {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 18px !important;
+
+  transform: translateX(-50%) !important;
+
+  width: 180px !important;
+  height: 56px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  z-index: 100 !important;
+
+  font-family: "DM Mono", monospace !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: .12em;
+}
+
+
+/* ============================================================
+   DOOR
+   RESETより上
+   ============================================================ */
+
+.game-page .door {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+
+  bottom: 100px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 30 !important;
+}
+
+
+/* ============================================================
+   SCENE
+   上部と下部を十分に分離
+   ============================================================ */
+
+.game-page .scene {
+  position: absolute !important;
+
+  top: 220px !important;
+  left: 5% !important;
+  right: 5% !important;
+  bottom: 330px !important;
+
+  min-height: 400px;
+}
+
+
+/* ============================================================
+   Mの部屋
+   ============================================================ */
+
+.game-page .room-m .m-scene {
+  position: absolute;
+  inset: 0;
+}
+
+
+/* ------------------------------------------------------------
+   「雰囲気を壊す」
+   窓より上
+   ------------------------------------------------------------ */
+
+.game-page .room-m .m-scene .mood {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 25px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 20 !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  white-space: nowrap;
+}
+
+
+/* ------------------------------------------------------------
+   Mの窓
+   雰囲気を壊すの下
+   24:00の上
+   ------------------------------------------------------------ */
+
+.game-page .room-m .moon-window {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 85px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 5 !important;
+}
+
+
+/* ------------------------------------------------------------
+   24:00
+   窓の完全な下
+   ------------------------------------------------------------ */
+
+.game-page .room-m .clock-24 {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 275px !important;
+  bottom: auto !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 20 !important;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   Nの部屋
+   ============================================================ */
+
+.game-page .room-n .north-window {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 60px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 5 !important;
+}
+
+
+/* ------------------------------------------------------------
+   12:00
+   窓の下
+   ------------------------------------------------------------ */
+
+.game-page .room-n .clock {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 245px !important;
+  bottom: auto !important;
+
+  transform: translateX(-50%) scale(1.05) !important;
+
+  z-index: 20 !important;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   スマートフォン
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .game-page .room {
+    height: 1000px;
+    min-height: 1000px;
+  }
+
+
+  /* ----------------------------------------------------------
+     RESET
+     ---------------------------------------------------------- */
+
+  .game-page #reset {
+    bottom: 18px !important;
+
+    width: 190px !important;
+    height: 58px !important;
+
+    font-size: 17px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     DOOR
+     ---------------------------------------------------------- */
+
+  .game-page .door {
+    bottom: 115px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     SCENE
+     ---------------------------------------------------------- */
+
+  .game-page .scene {
+    top: 230px !important;
+    bottom: 360px !important;
+    left: 3% !important;
+    right: 3% !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     M：雰囲気を壊す
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .m-scene .mood {
+    top: 20px !important;
+    font-size: 19px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     M：窓
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .moon-window {
+    top: 75px !important;
+
+    width: 200px !important;
+    height: 125px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     M：24:00
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .clock-24 {
+    top: 250px !important;
+    font-size: 24px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     N：窓
+     ---------------------------------------------------------- */
+
+  .game-page .room-n .north-window {
+    top: 60px !important;
+
+    width: 200px !important;
+    height: 125px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     N：12:00
+     ---------------------------------------------------------- */
+
+  .game-page .room-n .clock {
+    top: 230px !important;
+    font-size: 24px !important;
+  }
+}
+
+
+/* ============================================================
+   小さいスマートフォン
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .game-page .room {
+    height: 1040px;
+    min-height: 1040px;
+  }
+
+
+  .game-page #reset {
+    bottom: 18px !important;
+    width: 190px !important;
+    height: 60px !important;
+  }
+
+
+  .game-page .door {
+    bottom: 120px !important;
+  }
+
+
+  .game-page .room-m .m-scene .mood {
+    top: 15px !important;
+    font-size: 18px !important;
+  }
+
+
+  .game-page .room-m .moon-window {
+    top: 70px !important;
+  }
+
+
+  .game-page .room-m .clock-24 {
+    top: 245px !important;
+  }
+
+
+  .game-page .room-n .north-window {
+    top: 55px !important;
+  }
+
+
+  .game-page .room-n .clock {
+    top: 225px !important;
+  }
+}
+/* =========================================
+   RESET：常に画面下に固定
+   ========================================= */
+
+.game-page #reset {
+  position: fixed !important;
+
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 16px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 9999 !important;
+
+  width: 190px;
+  height: 50px;
+
+  margin: 0 !important;
+  padding: 9px 12px;
+
+  font: 11px "DM Mono", monospace;
+  letter-spacing: .1em;
+
+  cursor: pointer;
+}
+
+/* ホバー */
+.game-page #reset:hover {
+  transform: translateX(-50%) !important;
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+  .game-page #reset {
+    width: 180px;
+    height: 48px;
+    bottom: 14px !important;
+  }
+}
+/* =========================================
+   CLEAR LINKS
+   ========================================= */
+
+.clear-scene .clear-links {
+  width: min(92%, 520px);
+  margin: 28px auto 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 既存のXボタンをクリア画面内で整える */
+.clear-scene .x-share {
+  width: 100%;
+  margin: 0;
+}
+
+/* 告知ポストがまだ存在しない間 */
+.clear-scene .announcement-link[href="#"] {
+  cursor: default;
+  opacity: .45;
+}
+
+/* 告知ポストが未公開の場合はクリックしても移動しない */
+.clear-scene .announcement-link[href="#"]:active {
+  pointer-events: none;
 }

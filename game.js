@@ -311,24 +311,34 @@ const rooms = {
   // C
   // ----------------------------------------------------------
   C: () => {
+  // =========================================
+  // クリア画面のリンク設定
+  // =========================================
 
-    const el =
-      document.createElement('section');
+  // 作者のXアカウント
+  const authorXUrl = 'https://x.com/yuarikaa';
 
-    el.className =
-      'clear-scene';
+  // このサイトの告知ポスト
+  // ポスト公開後、このURLだけ変更してください。
+  const announcementPostUrl = '#';
 
-    el.innerHTML = `
-      <h2>CLEAR!</h2>
+  const el = document.createElement('section');
+  el.className = 'clear-scene';
 
-      <p>RE: Break the LOOP.</p>
+  el.innerHTML = `
+    <h2>CLEAR!</h2>
 
+    <p>RE: Break the LOOP.</p>
+
+    <div class="clear-links">
+
+      <!-- クリア結果の投稿 -->
       <a
-  class="x-share"
-  target="_blank"
-  rel="noopener"
-  href="https://twitter.com/intent/tweet?text=web%E8%AC%8E%E3%80%8CRE%3ABreak%20the%20LOOP%E3%80%8D%E3%82%92%E3%82%AF%E3%83%AA%E3%82%A2%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%EF%BC%81%20https%3A%2F%2Fyuarika.github.io%2FRE_Break_the_LOOP%2F%20%23%E8%AC%8E%E8%A7%A3%E3%81%8D%20%23RE_BTL%20%40yuarikaa"
->
+        class="x-share"
+        target="_blank"
+        rel="noopener"
+        href="https://twitter.com/intent/tweet?text=web%E8%AC%8E%E3%80%8CRE%3ABreak%20the%20LOOP%E3%80%8D%E3%82%92%E3%82%AF%E3%83%AA%E3%82%A2%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%EF%BC%81%20https%3A%2F%2Fyuarika.github.io%2FRE_Break_the_LOOP%2F%20%23%E8%AC%8E%E8%A7%A3%E3%81%8D%20%23RE_BTL%20%40yuarikaa"
+      >
         <span class="x-share-icon">𝕏</span>
 
         <span class="x-share-content">
@@ -338,10 +348,49 @@ const rooms = {
 
         <span class="x-share-arrow">↗</span>
       </a>
-    `;
 
-    return el;
-  }
+
+      <!-- 作者のXアカウント -->
+      <a
+        class="x-share"
+        target="_blank"
+        rel="noopener"
+        href="${authorXUrl}"
+      >
+        <span class="x-share-icon">𝕏</span>
+
+        <span class="x-share-content">
+          <span class="x-share-label">作者のXアカウント</span>
+          <span class="x-share-sub">@yuarikaa</span>
+        </span>
+
+        <span class="x-share-arrow">↗</span>
+      </a>
+
+
+      <!-- 告知ポスト -->
+      <a
+        class="x-share announcement-link"
+        href="${announcementPostUrl}"
+        target="_blank"
+        rel="noopener"
+        aria-label="RE:Break the LOOP 告知ポスト"
+      >
+        <span class="x-share-icon">𝕏</span>
+
+        <span class="x-share-content">
+          <span class="x-share-label">告知ポストを見る</span>
+          <span class="x-share-sub">ANNOUNCEMENT POST</span>
+        </span>
+
+        <span class="x-share-arrow">↗</span>
+      </a>
+
+    </div>
+  `;
+
+  return el;
+},
 };
 
 
