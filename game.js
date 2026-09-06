@@ -1417,8 +1417,13 @@ door.addEventListener(
 
     if (pending) {
 
-      current = pending;
+  current = pending;
 
+  // Mを一度離れて、再びMに戻ってきたら
+  // 「雰囲気を壊した状態」を解除する
+  if (current === 'M' && moodBroken) {
+    moodBroken = false;
+  }
 
       // ======================================================
       // 短いループ後
