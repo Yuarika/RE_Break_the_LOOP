@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=DM+Mono&family=Space+Grotesk:wght@400;500;700&display=swap');
 
-/* ============================================================
-   GLOBAL
-   ============================================================ */
 
 * {
   box-sizing: border-box;
 }
+
 
 html,
 body {
@@ -16,10 +14,12 @@ body {
   min-height: 100%;
 }
 
+
 body {
   color: #151515;
   font-family: "Space Grotesk", sans-serif;
 }
+
 
 /* ============================================================
    INTRO
@@ -103,6 +103,7 @@ h1 {
   background: #1b1b1b;
   border: 0;
   font: inherit;
+  text-decoration: none;
 }
 
 .start-button {
@@ -117,87 +118,63 @@ h1 {
   background: #5e5e5e;
 }
 
+
 /* ============================================================
    GAME
    ============================================================ */
 
 .game-page {
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   background: #e9e9e7;
 }
 
-/* ============================================================
-   HUD
-   ============================================================ */
-
-.game-page .hud {
+.hud {
   position: relative;
-  z-index: 100;
+  z-index: 20;
   height: 58px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 18px;
   background: #fff;
   border-bottom: 1px solid #ddd;
   font-size: 11px;
   letter-spacing: .08em;
 }
-
 /* ============================================================
    TRAIL
-   上部9個の丸
-   完全中央
+   8つの丸でループ進行状況を表示
    ============================================================ */
 
-.game-page #trail {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-
-  width: 100%;
-  height: 100%;
-
-  margin: 0;
-  padding: 0;
-
+#trail {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  transform: translateY(-50%);
-
+  margin: 0;
+  min-height: 32px;
   pointer-events: none;
 }
 
-.game-page .trail-dots {
+.trail-dots {
   display: flex;
   align-items: center;
   justify-content: center;
-
   gap: 8px;
-
-  width: max-content;
-  max-width: 100%;
+  min-height: 28px;
 }
 
 .trail-dot {
   display: block;
-
   width: 13px;
   height: 13px;
   flex: 0 0 13px;
-
   border-radius: 50%;
-
   background: transparent;
   border: 1.5px solid rgba(0, 0, 0, .45);
-
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, .45);
-
   transition:
     background .22s ease,
     border-color .22s ease,
@@ -208,208 +185,88 @@ h1 {
 .trail-dot-filled {
   background: #111;
   border-color: #111;
-
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, .05),
     0 2px 7px rgba(0, 0, 0, .18);
-
   transform: scale(1.05);
-}
-
-.trail-dot-loop {
-  background: #e53935 !important;
-  border-color: #e53935 !important;
-
-  box-shadow:
-    0 0 8px rgba(229, 57, 53, .8);
 }
 
 /* ============================================================
    RESET
-   ドアのさらに下
    ============================================================ */
 
-.game-page #reset {
-  position: absolute;
-
+#reset {
+  position: fixed;
   left: 50%;
-  top: auto;
-  right: auto;
-
-  /*
-   * roomの一番下から固定。
-   * ドアより下に配置する。
-   */
-  bottom: 20px;
-
+  bottom: 16px;
   transform: translateX(-50%);
-
-  z-index: 100;
-
-  width: 190px;
-  height: 58px;
-
-  margin: 0;
-  padding: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font:
-    700 16px "DM Mono",
-    monospace;
-
-  letter-spacing: .12em;
-
-  background: #1b1b1b;
-  color: #fff;
-
-  cursor: pointer;
+  z-index: 50;
+  padding: 9px 12px;
+  font: 11px "DM Mono", monospace;
+  letter-spacing: .1em;
 }
 
-.game-page #reset:hover {
+#reset:hover {
   background: #aa3030;
 }
 
-.game-page #reset:active {
-  transform: translateX(-50%) scale(.97);
-}
 
 /* ============================================================
    ROOM
-   拡大しても縦方向に余裕を持たせる
    ============================================================ */
 
-.game-page .room {
+.room {
   position: relative;
-
-  /*
-   * 画面が大きい場合は画面いっぱい。
-   * 小さい場合でも最低1000px確保。
-   */
-  height: max(1000px, calc(100vh - 58px));
-  min-height: 1000px;
-
+  height: calc(100vh - 58px);
+  min-height: 530px;
   overflow: hidden;
-
-  background:
-    linear-gradient(
-      115deg,
-      #fafafa,
-      #e7e7e5
-    );
-
-  box-shadow:
-    inset 0 0 70px rgba(0, 0, 0, .08);
-
+  background: linear-gradient(115deg, #fafafa, #e7e7e5);
+  box-shadow: inset 0 0 70px rgba(0,0,0,.08);
   transition: background .7s;
 }
 
 .room::after {
   content: '';
-
   position: absolute;
-
   left: 0;
   right: 0;
   bottom: 0;
-
   width: 100%;
   height: 30%;
-
   pointer-events: none;
-
   z-index: 0;
-
   background:
-    linear-gradient(
-      to bottom,
-      rgba(80,80,80,.02),
-      rgba(30,30,30,.14)
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(0,0,0,.035) 0,
-      rgba(0,0,0,.035) 1px,
-      transparent 1px,
-      transparent 90px
-    );
-
-  clip-path:
-    polygon(
-      0 30%,
-      100% 30%,
-      100% 100%,
-      0 100%
-    );
-
-  border-top:
-    2px solid rgba(0,0,0,.08);
+    linear-gradient(to bottom, rgba(80,80,80,.02), rgba(30,30,30,.14)),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.035) 0, rgba(0,0,0,.035) 1px, transparent 1px, transparent 90px);
+  clip-path: polygon(0 30%, 100% 30%, 100% 100%, 0 100%);
+  border-top: 2px solid rgba(0,0,0,.08);
 }
 
 .room::before {
   content: '';
-
   position: absolute;
-
   left: 0;
   top: 0;
-
   width: 14%;
   height: 100%;
-
   pointer-events: none;
-
-  background:
-    linear-gradient(
-      to right,
-      rgba(0,0,0,.07),
-      rgba(0,0,0,.015)
-    );
-
+  background: linear-gradient(to right, rgba(0,0,0,.07), rgba(0,0,0,.015));
   z-index: 0;
 }
 
+
 /* ============================================================
    TITLE
-   完全中央
    ============================================================ */
 
-.game-page .wall-title {
+.wall-title {
   position: absolute;
-
-  left: 50%;
-  right: auto;
-
-  top: 55px;
-
-  width: 90%;
-  max-width: 1100px;
-
-  margin: 0;
-
-  transform: translateX(-50%);
-
+  top: 8%;
+  width: 100%;
   text-align: center;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  flex-wrap: wrap;
-
-  font:
-    600 clamp(27px, 4vw, 50px)
-    "Chakra Petch",
-    "Space Grotesk",
-    sans-serif;
-
-  line-height: 1.2;
-
+  font: 600 clamp(27px, 4vw, 50px) "Chakra Petch", "Space Grotesk", sans-serif;
   letter-spacing: -.015em;
-
-  z-index: 20;
+  z-index: 3;
 }
 
 .title-fixed {
@@ -419,37 +276,33 @@ h1 {
 
 .title-loop {
   display: inline-block;
-
   margin: 0;
   padding: 0;
-
   border: 0;
   background: transparent;
-
   color: #b12435;
-
   font: inherit;
   font-weight: 700;
-
   cursor: crosshair;
+}
+
+.baka-group {
+  display: inline-flex;
+  white-space: nowrap;
+  min-width: 2.7em;
+  vertical-align: baseline;
 }
 
 .title-baka {
   appearance: none;
-
   display: inline-block;
-
   margin: 0;
   padding: 0;
-
   border: 0;
   background: transparent;
-
   color: #c32727;
-
   font: inherit;
   line-height: inherit;
-
   cursor: crosshair;
 }
 
@@ -460,27 +313,17 @@ h1 {
   transform: none !important;
 }
 
+
 /* ============================================================
    SCENE
-   上部と下部を十分に分離
    ============================================================ */
 
-.game-page .scene {
+.scene {
   position: absolute;
-
-  top: 220px;
-  left: 5%;
-  right: 5%;
-
-  /*
-   * ドア＋RESET用の下スペースを確保。
-   */
-  bottom: 330px;
-
-  min-height: 400px;
-
+  inset: 18% 6% 8%;
   z-index: 1;
 }
+
 
 /* ============================================================
    TARGET
@@ -488,23 +331,15 @@ h1 {
 
 .target {
   position: absolute;
-
   cursor: crosshair;
-
   border: 0;
   background: transparent;
-
   color: inherit;
   font: inherit;
-
   z-index: 2;
-
   margin: 0;
   padding: 0;
-
-  transition:
-    opacity .2s,
-    filter .2s;
+  transition: opacity .2s, filter .2s;
 }
 
 .target:hover {
@@ -516,40 +351,34 @@ h1 {
   outline-offset: 5px;
 }
 
+
 /* ============================================================
    SIGNS
-   ???L / ???R
    ============================================================ */
 
 .sign {
-  font:
-    700 clamp(42px, 8vw, 88px)
-    "DM Mono",
-    monospace;
-
+  font: 700 clamp(42px, 8vw, 88px) "DM Mono", monospace;
   letter-spacing: -.1em;
 }
 
 .sign.left {
-  left: 8%;
+  left: 14%;
   top: 45%;
 }
 
 .sign.right {
-  right: 8%;
+  right: 14%;
   top: 45%;
 }
 
-/*
- * 以前の30%指定を完全に打ち消す
- */
 .room-p .sign.left {
-  left: 8%;
+  left: 30%;
 }
 
 .room-p .sign.right {
-  right: 8%;
+  right: 30%;
 }
+
 
 /* ============================================================
    OBJECT
@@ -557,27 +386,22 @@ h1 {
 
 .object {
   width: 180px;
-
   text-align: center;
-
   font-size: 21px;
   font-weight: 700;
-
   z-index: 2;
 }
 
 .object .drawing {
   display: block;
-
   height: 120px;
-
   margin-bottom: 12px;
-
   position: relative;
 }
 
+
 /* ============================================================
-   ROOF / ROOM / ROOT
+   ROOF / ROOM(背景) / ROOT
    ============================================================ */
 
 .room-background {
@@ -586,54 +410,38 @@ h1 {
 }
 
 .roof {
-  left: 12%;
+  left: 22%;
   top: 28%;
 }
 
 .roof .drawing {
-  background:
-    url('image/Roof.png')
-    center / contain
-    no-repeat;
+  background: url('image/Roof.png') center / contain no-repeat;
 }
 
 .room-icon {
   left: 50%;
   top: 34%;
-
   transform: translateX(-50%);
 }
 
 .room-icon:hover {
-  transform:
-    translateX(-50%)
-    scale(1.05);
+  transform: translateX(-50%) scale(1.05);
 }
 
 .room-icon .drawing {
   border: 5px solid #222;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 48%,
-      #222 49%,
-      #222 52%,
-      transparent 53%
-    );
+  background: linear-gradient(90deg, transparent 48%, #222 49%, #222 52%, transparent 53%);
 }
 
 .root {
-  right: 12%;
+  right: 22%;
   top: 28%;
 }
 
 .root .drawing {
-  background:
-    url('image/Root.png')
-    center / contain
-    no-repeat;
+  background: url('image/Root.png') center / contain no-repeat;
 }
+
 
 /* ============================================================
    FOOT
@@ -642,120 +450,43 @@ h1 {
 .room-f .foot {
   left: 50%;
   top: 25%;
-
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .room-f .foot:hover {
-  transform:
-    translateX(-50%)
-    scale(1.05);
+  transform: translateX(-50%) scale(1.05);
 }
 
 .room-f .foot .drawing {
-  background:
-    url('image/Foot.png')
-    center / contain
-    no-repeat;
+  background: url('image/Foot.png') center / contain no-repeat;
 }
 
 /* ============================================================
-   M ROOM
+   MOON / Mの部屋の窓
    ============================================================ */
-
-.room-m {
-  background:
-    linear-gradient(
-      145deg,
-      #4c3b68,
-      #ba7896 48%,
-      #7779af
-    );
-
-  color: #fff;
-}
-
-.room-m::before {
-  background:
-    rgba(255,255,255,.16);
-}
-
-.room-m .wall-title {
-  text-shadow:
-    0 3px 20px #443452;
-}
-
 /* ============================================================
-   M SCENE
+   Mの部屋
    ============================================================ */
 
 .m-scene {
   position: absolute;
-
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-
+  inset: 0;
   width: 100%;
   height: 100%;
 }
 
-/* ============================================================
-   M MOOD
-   ============================================================ */
-
-.room-m .mood {
-  position: absolute;
-
-  left: 50%;
-  right: auto;
-
-  top: 25px;
-
-  transform:
-    translateX(-50%);
-
-  width: auto;
-  height: auto;
-
-  padding: 8px 16px;
-
-  border: 0;
-
-  background: transparent;
-
-  color: #222;
-
-  font-size: 24px;
-  font-weight: 700;
-
-  white-space: nowrap;
-
-  text-shadow:
-    0 1px 2px rgba(255,255,255,.8);
-
-  z-index: 20;
-}
 
 /* ============================================================
-   M WINDOW
+   Mの窓
    ============================================================ */
 
-.room-m .moon-window {
+.moon-window {
   position: absolute;
-
   left: 50%;
-  right: auto;
-
-  top: 90px;
-
+  top: 27%;
   width: 240px;
   height: 150px;
-
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
   overflow: hidden;
 
@@ -765,14 +496,15 @@ h1 {
   background: #090d27;
 
   box-shadow:
-    inset 0 0 30px rgba(0,0,0,.7),
-    0 0 18px rgba(30,35,90,.35);
+    inset 0 0 30px rgba(0, 0, 0, .7),
+    0 0 18px rgba(30, 35, 90, .35);
 
-  z-index: 5;
+  z-index: 2;
 }
 
+
 /* ============================================================
-   M SKY
+   夜空
    ============================================================ */
 
 .moon-sky {
@@ -790,8 +522,9 @@ h1 {
   pointer-events: none;
 }
 
+
 /* ============================================================
-   STARS
+   星
    ============================================================ */
 
 .moon-sky::before {
@@ -811,18 +544,19 @@ h1 {
 
   box-shadow:
     42px 15px 0 0 #fff,
-    86px -5px 0 0 rgba(255,255,255,.8),
+    86px -5px 0 0 rgba(255, 255, 255, .8),
     126px 28px 0 0 #fff,
-    172px 5px 0 0 rgba(255,255,255,.7),
-    28px 78px 0 0 rgba(255,255,255,.7),
+    172px 5px 0 0 rgba(255, 255, 255, .7),
+    28px 78px 0 0 rgba(255, 255, 255, .7),
     108px 65px 0 0 #fff,
-    158px 82px 0 0 rgba(255,255,255,.8);
+    158px 82px 0 0 rgba(255, 255, 255, .8);
 
   pointer-events: none;
 }
 
+
 /* ============================================================
-   MOON
+   月
    ============================================================ */
 
 .moon-window .moon {
@@ -834,14 +568,287 @@ h1 {
   width: 68px;
   height: 68px;
 
-  transform:
-    translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 
   border: 0;
   border-radius: 50%;
 
   padding: 0;
   margin: 0;
+
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      rgba(120, 120, 120, .28) 0 5px,
+      transparent 6px
+    ),
+    radial-gradient(
+      circle at 67% 38%,
+      rgba(120, 120, 120, .22) 0 7px,
+      transparent 8px
+    ),
+    radial-gradient(
+      circle at 45% 68%,
+      rgba(120, 120, 120, .20) 0 5px,
+      transparent 6px
+    ),
+    radial-gradient(
+      circle at 76% 72%,
+      rgba(120, 120, 120, .18) 0 4px,
+      transparent 5px
+    ),
+    #fff4c7;
+
+  box-shadow:
+    0 0 10px rgba(255, 244, 199, .8),
+    0 0 25px rgba(255, 244, 199, .45);
+
+  z-index: 3;
+
+  font-size: 0;
+  color: transparent;
+}
+
+
+/* 月を撃った後、ボタン自体だけ消える */
+.moon-window .moon.shot-target {
+  opacity: 0;
+  transform:
+    translate(-50%, -50%)
+    scale(.8);
+}
+
+
+/* ============================================================
+   「雰囲気を壊す」
+   窓の上
+   ============================================================ */
+
+.m-scene .mood {
+  position: absolute;
+
+  left: 50%;
+  top: 15%;
+
+  transform: translateX(-50%);
+
+  z-index: 5;
+
+  width: auto;
+  height: auto;
+
+  padding: 8px 16px;
+
+  border: 0;
+  background: transparent;
+
+  color: #222;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, .8);
+}
+
+
+/* ============================================================
+   Mの24:00
+   Nの12:00と同じ位置
+   ※ divなので撃てない
+   ============================================================ */
+
+.clock-24 {
+  position: absolute;
+
+  left: 50%;
+  top: 51%;
+
+  transform: translateX(-50%);
+
+  z-index: 6;
+
+  color: #222;
+
+  font-family:
+    'Chakra Petch',
+    sans-serif;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  letter-spacing: .08em;
+
+  white-space: nowrap;
+
+  pointer-events: none;
+
+  user-select: none;
+
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, .8);
+}
+
+
+/* ============================================================
+   Nの窓
+   ============================================================ */
+
+.north-window {
+  position: absolute;
+
+  left: 50%;
+  top: 27%;
+
+  width: 240px;
+  height: 150px;
+
+  transform: translateX(-50%);
+
+  overflow: hidden;
+
+  border: 6px solid #222;
+  border-radius: 4px;
+
+  z-index: 2;
+}
+
+
+/* 青空 */
+
+.north-sky {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #6fc8ff 0%,
+      #a9e0ff 55%,
+      #dff4ff 100%
+    );
+}
+
+
+/* 太陽 */
+
+.north-sun {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 58px;
+  height: 58px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #fff3a6;
+
+  box-shadow:
+    0 0 15px rgba(255, 243, 166, .75),
+    0 0 30px rgba(255, 243, 166, .45);
+}
+
+
+/* ============================================================
+   Nの12:00
+   ============================================================ */
+
+.north-scene .clock {
+  position: absolute;
+
+  left: 50%;
+  top: 51%;
+
+  transform: translateX(-50%);
+
+  z-index: 6;
+
+  font-size: 28px;
+
+  white-space: nowrap;
+}
+
+
+
+
+/* ============================================================
+   スマホ
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .moon-window,
+  .north-window {
+    width: 200px;
+    height: 125px;
+  }
+
+  .moon-window .moon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .m-scene .mood {
+    top: 13%;
+
+    font-size: 19px;
+
+    padding: 6px 12px;
+  }
+
+  .clock-24,
+  .north-scene .clock {
+    top: 51%;
+    font-size: 24px;
+  }
+  .x-share {
+  width: min(390px, 88vw);
+  padding: 15px 16px;
+}
+
+.x-share-icon {
+  width: 38px;
+  height: 38px;
+  flex-basis: 38px;
+  font-size: 20px;
+}
+
+.x-share-label {
+  font-size: 11px;
+}
+
+.x-share-sub {
+  font-size: 8px;
+}
+
+.x-share-arrow {
+  font-size: 21px;
+}
+}
+/* ------------------------------------------------------------
+   月
+   ------------------------------------------------------------ */
+
+.moon::after {
+  content: '';
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 68px;
+  height: 68px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
 
   background:
     radial-gradient(
@@ -856,7 +863,7 @@ h1 {
     ),
     radial-gradient(
       circle at 45% 68%,
-      rgba(120,120,120,.20) 0 5px,
+      rgba(120,120,120,.2) 0 5px,
       transparent 6px
     ),
     radial-gradient(
@@ -870,213 +877,22 @@ h1 {
     0 0 10px rgba(255,244,199,.8),
     0 0 25px rgba(255,244,199,.45);
 
-  z-index: 3;
-
-  font-size: 0;
-  color: transparent;
-}
-
-.moon-window .moon.shot-target {
-  opacity: 0;
-
-  transform:
-    translate(-50%, -50%)
-    scale(.8);
-}
-
-/* ============================================================
-   M 24:00
-   窓の完全な下
-   ============================================================ */
-
-.room-m .clock-24 {
-  position: absolute;
-
-  left: 50%;
-  right: auto;
-
-  top: 275px;
-  bottom: auto;
-
-  width: max-content;
-  height: auto;
-
-  margin: 0;
-  padding: 0;
-
-  transform:
-    translateX(-50%);
-
-  z-index: 20;
-
-  color: #222;
-
-  font:
-    700 28px
-    "Chakra Petch",
-    sans-serif;
-
-  letter-spacing: .08em;
-
-  white-space: nowrap;
-
   pointer-events: none;
-  user-select: none;
-
-  text-shadow:
-    0 1px 2px rgba(255,255,255,.8);
 }
 
 /* ============================================================
-   N WINDOW
+   MOOD
    ============================================================ */
 
-.room-n .north-window {
-  position: absolute;
-
-  left: 50%;
-  right: auto;
-
-  top: 90px;
-
-  width: 240px;
-  height: 150px;
-
-  transform:
-    translateX(-50%);
-
-  border-radius: 4px;
-
-  overflow: hidden;
-
-  border: 6px solid #222;
-
-  background: #9ddcff;
-
-  z-index: 5;
-
-  box-shadow:
-    inset 0 0 25px rgba(0,0,0,.15),
-    0 0 15px rgba(0,0,0,.12);
+.mood {
+  left: 12%;
+  top: 40%;
+  width: 270px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
 }
 
-.north-sky {
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      #5eb9ef 0%,
-      #8bd0f5 48%,
-      #d9f1ff 100%
-    );
-}
-
-.north-sky::before {
-  content: '';
-
-  position: absolute;
-
-  left: 15%;
-  top: 25%;
-
-  width: 85px;
-  height: 25px;
-
-  border-radius: 30px;
-
-  background:
-    rgba(255,255,255,.82);
-
-  box-shadow:
-    25px -10px 0 5px rgba(255,255,255,.82),
-    52px 2px 0 2px rgba(255,255,255,.82);
-}
-
-.north-sky::after {
-  content: '';
-
-  position: absolute;
-
-  right: 10%;
-  top: 62%;
-
-  width: 70px;
-  height: 20px;
-
-  border-radius: 30px;
-
-  background:
-    rgba(255,255,255,.65);
-
-  box-shadow:
-    18px -8px 0 3px rgba(255,255,255,.65),
-    38px 1px 0 1px rgba(255,255,255,.65);
-}
-
-.north-sun {
-  position: absolute;
-
-  top: 18px;
-  right: 22px;
-  left: auto;
-
-  width: 30px;
-  height: 30px;
-
-  border-radius: 50%;
-
-  background: #ffe27a;
-
-  box-shadow:
-    0 0 14px rgba(255,226,122,.9);
-}
-
-/* ============================================================
-   N 12:00
-   窓の完全な下
-   ============================================================ */
-
-.room-n .clock {
-  position: absolute;
-
-  left: 50%;
-  right: auto;
-
-  top: 275px;
-  bottom: auto;
-
-  width: max-content;
-  height: auto;
-
-  padding: 0;
-  margin: 0;
-
-  transform:
-    translateX(-50%)
-    scale(1.05);
-
-  display: block;
-
-  z-index: 20;
-
-  font:
-    700 34px
-    "DM Mono",
-    monospace;
-
-  background: transparent;
-
-  color: #222;
-
-  line-height: 1;
-
-  white-space: nowrap;
-
-  appearance: none;
-  -webkit-appearance: none;
-}
 
 /* ============================================================
    TOOL
@@ -1085,23 +901,119 @@ h1 {
 .room-t .tool-image {
   left: 50%;
   top: 25%;
-
   width: 190px;
   height: 190px;
-
-  transform:
-    translateX(-50%);
-
-  background:
-    url('image/Tool.png')
-    center / contain
-    no-repeat;
+  transform: translateX(-50%);
+  background: url('image/Tool.png') center / contain no-repeat;
 }
 
 .room-t .tool-image:hover {
-  transform:
-    translateX(-50%)
-    scale(1.05);
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* ============================================================
+NORTH WINDOW
+Nの部屋の窓
+============================================================ */
+
+.north-window {
+position: absolute;
+left: 50%;
+top: 22%;
+width: 240px;
+height: 150px;
+transform: translateX(-50%);
+border-radius: 4px;
+overflow: hidden;
+border: 6px solid #222;
+background: #9ddcff;
+z-index: 1;
+box-shadow:
+inset 0 0 25px rgba(0,0,0,.15),
+0 0 15px rgba(0,0,0,.12);
+}
+
+.north-sky {
+position: absolute;
+inset: 0;
+background:
+linear-gradient(
+180deg,
+#5eb9ef 0%,
+#8bd0f5 48%,
+#d9f1ff 100%
+);
+}
+
+/* 雲 */
+.north-sky::before {
+content: '';
+position: absolute;
+left: 15%;
+top: 25%;
+width: 85px;
+height: 25px;
+border-radius: 30px;
+background: rgba(255,255,255,.82);
+box-shadow:
+25px -10px 0 5px rgba(255,255,255,.82),
+52px 2px 0 2px rgba(255,255,255,.82);
+}
+
+.north-sky::after {
+content: '';
+position: absolute;
+right: 10%;
+top: 62%;
+width: 70px;
+height: 20px;
+border-radius: 30px;
+background: rgba(255,255,255,.65);
+box-shadow:
+18px -8px 0 3px rgba(255,255,255,.65),
+38px 1px 0 1px rgba(255,255,255,.65);
+}
+
+/* 太陽 */
+.north-sun {
+position: absolute;
+top: 18px;
+right: 22px;
+left: auto;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+background: #ffe27a;
+box-shadow: 0 0 14px rgba(255,226,122,.9);
+}
+
+/* ============================================================
+CLOCK
+Nの部屋：窓の下、ドアの上
+============================================================ */
+
+.clock {
+appearance: none;
+left: 50%;
+top: 51%;
+width: auto;
+height: auto;
+padding: 10px 22px;
+margin: 0;
+transform: translateX(-50%);
+border: 0;
+border-radius: 0;
+display: block;
+font: 700 34px "DM Mono", monospace;
+background: transparent;
+color: #222;
+line-height: 1;
+-webkit-appearance: none;
+z-index: 3;
+}
+
+.clock {
+transform: translateX(-50%) scale(1.05);
 }
 
 /* ============================================================
@@ -1111,117 +1023,68 @@ h1 {
 .door-target {
   left: 50%;
   top: 42%;
-
-  transform:
-    translateX(-50%);
-
-  font:
-    700 35px
-    "DM Mono";
-
+  transform: translateX(-50%);
+  font: 700 35px "DM Mono";
   padding: 30px 18px;
-
   border: 5px solid #222;
-
-  background:
-    rgba(255,255,255,.15);
+  background: rgba(255,255,255,.15);
 }
 
 .door-target:hover {
-  transform:
-    translateX(-50%)
-    scale(1.05);
+  transform: translateX(-50%) scale(1.05);
 }
+
 
 /* ============================================================
    DOOR
-   ドアはRESETより上
    ============================================================ */
 
-.game-page .door {
+.door {
   position: absolute;
-
-  left: 50%;
-  right: auto;
-
-  top: auto;
-
-  /*
-   * RESETの高さ58px + 下20px
-   * さらに余白22px
-   *
-   * ドア下端 = 100px
-   */
-  bottom: 100px;
-
-  transform:
-    translateX(-50%);
-
+  cursor: pointer;
   width: 130px;
   height: 230px;
-
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
   background: #292522;
-
-  border:
-    5px solid #554238;
-
+  border: 5px solid #554238;
   border-bottom: 0;
-
-  z-index: 30;
-
-  box-shadow:
-    inset 0 0 0 2px #171513;
-
-  animation:
-    arrive .25s ease-out;
+  z-index: 10;
+  box-shadow: inset 0 0 0 2px #171513;
+  animation: arrive .25s ease-out;
 }
 
-.game-page .door:hover {
-  transform:
-    translateX(-50%)
-    scale(1.05);
+.door:hover {
+  transform: translateX(-50%) scale(1.05);
 }
 
 .door::before {
   content: '';
-
   position: absolute;
-
   inset: 9px;
-
-  border:
-    1px solid #8c7665;
+  border: 1px solid #8c7665;
 }
 
 .door small {
   position: absolute;
-
   bottom: 24px;
-
   left: 0;
   right: 0;
-
-  font:
-    10px
-    "DM Mono",
-    monospace;
-
+  font: 10px "DM Mono", monospace;
   letter-spacing: .15em;
 }
 
 .knob {
   position: absolute;
-
   right: 14px;
   top: 52%;
-
   width: 8px;
   height: 8px;
-
   background: #333;
-
   border-radius: 50%;
 }
+
 
 /* ============================================================
    DOOR BREAK
@@ -1229,17 +1092,12 @@ h1 {
 
 .room-d .door.broken {
   background: #000;
-
   border: 0;
-
   opacity: 1;
-
   box-shadow:
     inset 0 0 35px rgba(0,0,0,1),
     0 0 35px rgba(0,0,0,.85);
-
-  animation:
-    door-break .28s ease-out forwards;
+  animation: door-break .28s ease-out forwards;
 }
 
 .room-d .door.broken::before,
@@ -1250,71 +1108,45 @@ h1 {
 
 @keyframes door-break {
   0% {
-    transform:
-      translateX(-50%)
-      scale(.85);
-
+    transform: translateX(-50%) scale(.85);
     opacity: .4;
   }
-
   60% {
-    transform:
-      translateX(-50%)
-      scale(1.04);
-
+    transform: translateX(-50%) scale(1.04);
     opacity: 1;
   }
-
   100% {
-    transform:
-      translateX(-50%)
-      scale(1);
-
+    transform: translateX(-50%) scale(1);
     opacity: 1;
   }
 }
+
 
 /* ============================================================
    INDICATOR
    ============================================================ */
 
-.game-page .loop-indicator {
+.loop-indicator {
   position: absolute;
-
-  top: 150px;
-
+  top: 18%;
   left: 50%;
-
+  transform: translateX(-50%);
   width: 420px;
-
-  transform:
-    translateX(-50%);
-
   text-align: center;
-
-  z-index: 15;
-
+  z-index: 8;
   pointer-events: none;
 }
 
 .indicator-row {
   display: grid;
-
-  grid-template-columns:
-    130px
-    160px
-    130px;
-
+  grid-template-columns: 130px 160px 130px;
   align-items: center;
 }
 
 .indicator-side {
   height: 92px;
-
   display: flex;
-
   align-items: center;
-
   gap: 8px;
 }
 
@@ -1330,7 +1162,6 @@ h1 {
 
 .indicator-center {
   display: flex;
-
   align-items: center;
   justify-content: center;
 }
@@ -1338,28 +1169,21 @@ h1 {
 .infinity-mark {
   width: 160px;
   height: 92px;
-
-  background:
-    url('image/LOOP.png')
-    center / contain
-    no-repeat;
+  background: url('image/LOOP.png') center / contain no-repeat;
 }
 
 .hint-image,
 .arrow-image {
   width: 48px;
   height: 48px;
-
   object-fit: contain;
 }
-
 .period-message {
   font-family:
-    "Chakra Petch",
+    'Chakra Petch',
     sans-serif;
 
   font-size: 34px;
-
   font-weight: 700;
 
   letter-spacing: .08em;
@@ -1372,6 +1196,21 @@ h1 {
 /* ============================================================
    PERIOD
    ============================================================ */
+.period-loop {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.period-p {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+/* ============================================================
+   PERIOD TARGET
+   Pの右下＝本来ピリオドが来る位置
+   見た目は完全に透明、当たり判定だけ存在
+   ============================================================ */
 
 .period-loop {
   display: inline-block;
@@ -1380,17 +1219,16 @@ h1 {
 
 .period-p {
   position: relative;
-
   display: inline-block;
-
   white-space: nowrap;
 }
 
 .period-target {
   position: absolute;
 
-  right: -1em;
-  bottom: -.18em;
+  /* Pの右下 */
+  right: -1.0em;
+  bottom: -0.18em;
 
   width: 40px;
   height: 40px;
@@ -1399,43 +1237,30 @@ h1 {
   margin: 0;
 
   border: 0;
-
   background: transparent;
 
   cursor: crosshair;
 
   opacity: 0;
-
   z-index: 100;
-}
 
+  box-sizing: border-box;
+}
 /* ============================================================
    MESSAGE
    ============================================================ */
 
-.game-page .message {
+.message {
   position: absolute;
-
-  top: 105px;
-
+  top: 1.8%;
   left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  width:
-    min(90%, 900px);
-
+  transform: translateX(-50%);
+  width: min(90%, 900px);
   text-align: center;
-
   font-size: 14px;
-
   line-height: 1.7;
-
   letter-spacing: .06em;
-
-  z-index: 30;
-
+  z-index: 15;
   pointer-events: none;
 }
 
@@ -1443,15 +1268,14 @@ h1 {
   font-weight: 700;
 }
 
+
 /* ============================================================
    SHOT ANIMATION
    ============================================================ */
 
 .shot-target {
   pointer-events: none;
-
-  animation:
-    target-break .18s ease-out forwards;
+  animation: target-break .18s ease-out forwards;
 }
 
 @keyframes target-break {
@@ -1459,12 +1283,10 @@ h1 {
     opacity: 1;
     filter: none;
   }
-
   45% {
     opacity: .75;
     filter: brightness(2);
   }
-
   100% {
     opacity: 0;
     filter: brightness(3);
@@ -1472,169 +1294,122 @@ h1 {
 }
 
 .room-f .foot.shot-target {
-  animation:
-    foot-target-break .18s ease-out forwards;
+  animation: foot-target-break .18s ease-out forwards;
 }
 
 @keyframes foot-target-break {
   0% {
     opacity: 1;
-
-    transform:
-      translateX(-50%)
-      scale(1);
-
+    transform: translateX(-50%) scale(1);
     filter: none;
   }
-
   45% {
     opacity: .75;
-
-    transform:
-      translateX(-50%)
-      scale(1.08);
-
+    transform: translateX(-50%) scale(1.08);
     filter: brightness(2);
   }
-
   100% {
     opacity: 0;
-
-    transform:
-      translateX(-50%)
-      scale(.7);
-
+    transform: translateX(-50%) scale(.7);
     filter: brightness(3);
   }
 }
 
 .room-t .tool-image.shot-target {
-  animation:
-    tool-target-break .18s ease-out forwards;
+  animation: tool-target-break .18s ease-out forwards;
 }
 
 @keyframes tool-target-break {
   0% {
     opacity: 1;
-
-    transform:
-      translateX(-50%)
-      scale(1);
-
+    transform: translateX(-50%) scale(1);
     filter: none;
   }
-
   45% {
     opacity: .75;
-
-    transform:
-      translateX(-50%)
-      scale(1.08);
-
+    transform: translateX(-50%) scale(1.08);
     filter: brightness(2);
   }
-
   100% {
     opacity: 0;
-
-    transform:
-      translateX(-50%)
-      scale(.7);
-
+    transform: translateX(-50%) scale(.7);
     filter: brightness(3);
   }
 }
 
 .room-n .clock.shot-target {
-  animation:
-    clock-target-break .18s ease-out forwards;
+  animation: clock-target-break .18s ease-out forwards;
 }
 
 @keyframes clock-target-break {
   0% {
     opacity: 1;
-
-    transform:
-      translate(-50%, 0)
-      scale(1);
-
+    transform: translate(-50%, -50%) scale(1);
     filter: none;
   }
-
   45% {
     opacity: .75;
-
-    transform:
-      translate(-50%, 0)
-      scale(1.08);
-
+    transform: translate(-50%, -50%) scale(1.08);
     filter: brightness(2);
   }
-
   100% {
     opacity: 0;
-
-    transform:
-      translate(-50%, 0)
-      scale(.7);
-
+    transform: translate(-50%, -50%) scale(.7);
     filter: brightness(3);
   }
 }
+
+
+/* ============================================================
+   M ROOM
+   ============================================================ */
+
+.room-m {
+  background: linear-gradient(145deg, #4c3b68, #ba7896 48%, #7779af);
+  color: #fff;
+}
+
+.room-m::before {
+  background: rgba(255,255,255,.16);
+}
+
+.room-m .wall-title {
+  text-shadow: 0 3px 20px #443452;
+}
+
 
 /* ============================================================
    CLEAR
    ============================================================ */
 
 .room-c {
-  background:
-    radial-gradient(
-      circle,
-      #fff8bd,
-      #e4a82c 55%,
-      #54220b
-    );
-
+  background: radial-gradient(circle, #fff8bd, #e4a82c 55%, #54220b);
   color: #fff;
 }
 
 .clear-scene {
   position: absolute;
-
   inset: 15% 5%;
-
   display: grid;
-
   place-content: center;
-
   text-align: center;
-
   z-index: 20;
 }
 
 .clear-scene h2 {
   margin: 0;
-
-  font:
-    700 clamp(70px, 17vw, 180px)
-    "Space Grotesk",
-    sans-serif;
-
+  font: 700 clamp(70px, 17vw, 180px) "Space Grotesk", sans-serif;
   letter-spacing: -.08em;
-
   text-shadow:
     0 6px 0 #6b250b,
     0 0 38px #fff8a4;
 }
 
 .clear-scene p {
-  font:
-    15px
-    "DM Mono",
-    monospace;
-
+  font: 15px "DM Mono", monospace;
   letter-spacing: .16em;
 }
+
 
 /* ============================================================
    ARRIVE
@@ -1642,18 +1417,102 @@ h1 {
 
 @keyframes arrive {
   from {
-    transform:
-      translate(-50%, 150px);
+    transform: translate(-50%, 150px);
   }
-
   to {
-    transform:
-      translateX(-50%);
+    transform: translateX(-50%);
   }
 }
 
+
 /* ============================================================
-   X SHARE
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 620px) {
+
+  .intro-card {
+    padding: 36px 26px;
+  }
+
+  .intro-logo img {
+    width: 100%;
+  }
+
+  .object {
+    transform: scale(.75);
+  }
+
+  .roof {
+    left: 8%;
+  }
+
+  .root {
+    right: 8%;
+  }
+
+  .door {
+    width: 95px;
+    height: 190px;
+  }
+
+  .clock {
+    left: 30%;
+    width: 230px;
+  }
+
+  .loop-indicator {
+    width: 330px;
+  }
+
+  .indicator-row {
+    grid-template-columns: 95px 140px 95px;
+  }
+
+  .loop-indicator .infinity-mark {
+    width: 140px;
+  }
+
+  .indicator-side {
+    gap: 4px;
+  }
+
+  .hint-image,
+  .arrow-image {
+    width: 38px;
+    height: 38px;
+  }
+
+  .period-message {
+    font-size: 22px;
+  }
+#trail {
+  max-width: 72vw;
+}
+
+.trail-dots {
+  gap: 6px;
+}
+
+.trail-dot {
+  width: 10px;
+  height: 10px;
+  flex-basis: 10px;
+}
+@media (max-width: 420px) {
+  .trail-dots {
+    gap: 5px;
+  }
+
+  .trail-dot {
+    width: 9px;
+    height: 9px;
+    flex-basis: 9px;
+  }
+}
+}
+/* ============================================================
+   X SHARE BUTTON
    ============================================================ */
 
 .x-share {
@@ -1669,11 +1528,9 @@ h1 {
   padding: 18px 20px;
 
   color: #fff;
-
   background: #111;
 
-  border:
-    1px solid rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.22);
 
   text-decoration: none;
 
@@ -1703,8 +1560,7 @@ h1 {
       transparent 65%
     );
 
-  transform:
-    translateX(-120%);
+  transform: translateX(-120%);
 
   transition:
     transform .5s ease;
@@ -1730,11 +1586,13 @@ h1 {
     translateY(-1px);
 }
 
+
+/* Xロゴ */
+
 .x-share-icon {
   position: relative;
 
   display: grid;
-
   place-items: center;
 
   width: 42px;
@@ -1742,8 +1600,7 @@ h1 {
 
   flex: 0 0 42px;
 
-  border:
-    1px solid rgba(255,255,255,.3);
+  border: 1px solid rgba(255,255,255,.3);
 
   font-family:
     "Space Grotesk",
@@ -1755,11 +1612,13 @@ h1 {
   line-height: 1;
 }
 
+
+/* 中央テキスト */
+
 .x-share-content {
   position: relative;
 
   display: flex;
-
   flex-direction: column;
 
   flex: 1;
@@ -1788,9 +1647,11 @@ h1 {
 
   letter-spacing: .12em;
 
-  color:
-    rgba(255,255,255,.55);
+  color: rgba(255,255,255,.55);
 }
+
+
+/* 右矢印 */
 
 .x-share-arrow {
   position: relative;
@@ -1809,59 +1670,57 @@ h1 {
 .x-share:hover .x-share-arrow {
   transform:
     translate(4px, -4px);
-}
-
-/* ============================================================
-   BULLET
+}/* ============================================================
+   BULLET HOLE
+   黒い弾痕 + 周囲のひび割れ
    ============================================================ */
 
 .bullet {
   position: absolute;
-
   width: 34px;
   height: 34px;
-
   margin: 0;
   padding: 0;
 
-  transform:
-    translate(-50%, -50%);
-
+  transform: translate(-50%, -50%);
   pointer-events: none;
-
   z-index: 4;
 
+  /* 中央の黒い弾痕 */
   background:
     radial-gradient(
       circle at center,
       #000 0%,
       #000 22%,
       #111 30%,
-      rgba(0,0,0,.75) 38%,
+      rgba(0, 0, 0, .75) 38%,
       transparent 42%
     );
 
   border-radius: 50%;
 
-  animation:
-    bullet-hole-in .14s ease-out forwards;
+  animation: bullet-hole-in .14s ease-out forwards;
 }
+
+
+/* ============================================================
+   ひび割れ
+   ============================================================ */
 
 .bullet::before {
   content: '';
 
   position: absolute;
-
   left: 50%;
   top: 50%;
 
   width: 100%;
   height: 100%;
 
-  transform:
-    translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 
   background:
+    /* 上 */
     linear-gradient(
       78deg,
       transparent 47%,
@@ -1869,6 +1728,8 @@ h1 {
       rgba(0,0,0,.75) 51%,
       transparent 52%
     ),
+
+    /* 右上 */
     linear-gradient(
       135deg,
       transparent 48%,
@@ -1876,6 +1737,8 @@ h1 {
       rgba(0,0,0,.65) 51%,
       transparent 52%
     ),
+
+    /* 右 */
     linear-gradient(
       168deg,
       transparent 48%,
@@ -1883,6 +1746,8 @@ h1 {
       rgba(0,0,0,.75) 51%,
       transparent 52%
     ),
+
+    /* 下 */
     linear-gradient(
       25deg,
       transparent 48%,
@@ -1890,6 +1755,8 @@ h1 {
       rgba(0,0,0,.7) 51%,
       transparent 52%
     ),
+
+    /* 左下 */
     linear-gradient(
       315deg,
       transparent 48%,
@@ -1901,20 +1768,22 @@ h1 {
   opacity: .9;
 }
 
+
+/* ============================================================
+   さらに細かいひび
+   ============================================================ */
+
 .bullet::after {
   content: '';
 
   position: absolute;
-
   left: 50%;
   top: 50%;
 
   width: 30px;
   height: 30px;
 
-  transform:
-    translate(-50%, -50%)
-    rotate(23deg);
+  transform: translate(-50%, -50%) rotate(23deg);
 
   background:
     linear-gradient(
@@ -1942,37 +1811,221 @@ h1 {
   opacity: .8;
 }
 
+
+/* ============================================================
+   弾痕が現れる瞬間
+   ============================================================ */
+
 @keyframes bullet-hole-in {
+
   0% {
     opacity: 0;
-
-    transform:
-      translate(-50%, -50%)
-      scale(.25);
+    transform: translate(-50%, -50%) scale(.25);
   }
 
   60% {
     opacity: 1;
-
-    transform:
-      translate(-50%, -50%)
-      scale(1.15);
+    transform: translate(-50%, -50%) scale(1.15);
   }
 
   100% {
     opacity: 1;
-
-    transform:
-      translate(-50%, -50%)
-      scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
-}
-
-/* ============================================================
-   MOBILE
+}/* ============================================================
+   長いループ完成時の赤い丸
    ============================================================ */
 
-@media (max-width: 700px) {
+.trail-dot-loop {
+  background: #e53935 !important;
+  border-color: #e53935 !important;
+  box-shadow:
+    0 0 8px rgba(229, 57, 53, 0.8);
+}
+/* ============================================================
+   RESPONSIVE FIX
+   スマートフォン・ブラウザ拡大時の重なり対策
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   ゲーム全体
+   ------------------------------------------------------------ */
+
+html {
+  overflow-x: hidden;
+}
+
+body.game-page {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+/* ------------------------------------------------------------
+   HUD
+   上部9個の丸を常に画面中央へ
+   ------------------------------------------------------------ */
+
+.game-page .hud {
+  position: relative;
+}
+
+.game-page #trail {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  margin: 0;
+  padding: 0;
+
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  white-space: nowrap;
+}
+
+.game-page .trail-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* ------------------------------------------------------------
+   ROOM
+   画面高さに依存しすぎないようにする
+   拡大時は縦方向にスクロール可能
+   ------------------------------------------------------------ */
+
+.game-page .room {
+  height: auto;
+  min-height: 760px;
+
+  position: relative;
+}
+
+
+/* ------------------------------------------------------------
+   SCENE
+   上下に十分な余白を確保
+   ------------------------------------------------------------ */
+
+.game-page .scene {
+  position: absolute;
+
+  top: 170px;
+  right: 6%;
+  bottom: 100px;
+  left: 6%;
+
+  min-height: 490px;
+}
+
+
+/* ------------------------------------------------------------
+   P ROOM
+   ???L / ???R
+   中央に寄りすぎないよう左右へ広げる
+   ------------------------------------------------------------ */
+
+.game-page .room-p .scene {
+  top: 170px;
+  bottom: 100px;
+}
+
+.game-page .room-p .sign.left {
+  left: 8%;
+}
+
+.game-page .room-p .sign.right {
+  right: 8%;
+}
+
+
+/* ------------------------------------------------------------
+   R ROOM
+   ROOF / ROOT
+   中央で重ならないよう左右へ大きく離す
+   ------------------------------------------------------------ */
+
+.game-page .room-r .scene {
+  top: 170px;
+  bottom: 100px;
+}
+
+.game-page .room-r .roof {
+  left: 20%;
+}
+
+.game-page .room-r .root {
+  right: 20%;
+}
+
+
+/* ------------------------------------------------------------
+   M ROOM
+   24:00
+   左寄りにならないよう中央基準にする
+   ------------------------------------------------------------ */
+
+.game-page .room-m .clock-24 {
+  left: 50%;
+  right: auto;
+
+  transform: translateX(-50%);
+}
+
+
+/* ------------------------------------------------------------
+   タイトル
+   拡大時に他要素と詰まりすぎないようにする
+   ------------------------------------------------------------ */
+
+.game-page .wall-title {
+  top: 55px;
+
+  width: 90%;
+  max-width: 1100px;
+
+  z-index: 20;
+}
+
+
+/* ------------------------------------------------------------
+   インジケーター
+   タイトルやシーンと十分離す
+   ------------------------------------------------------------ */
+
+.game-page .loop-indicator {
+  top: 150px;
+  z-index: 15;
+}
+
+
+/* ------------------------------------------------------------
+   メッセージ
+   上部の要素と重ならないようにする
+   ------------------------------------------------------------ */
+
+.game-page .message {
+  top: 105px;
+
+  width: min(90%, 900px);
+
+  z-index: 30;
+}
+
+
+/* ============================================================
+   SMARTPHONE
+   ============================================================ */
+
+@media (max-width: 600px) {
 
   /* ----------------------------------------------------------
      HUD
@@ -1983,13 +2036,12 @@ h1 {
   }
 
   .game-page #trail {
-    left: 0;
-    right: 0;
+    left: 50%;
+    top: 50%;
 
-    width: 100%;
+    transform: translate(-50%, -50%);
 
-    transform:
-      translateY(-50%);
+    width: max-content;
   }
 
   .game-page .trail-dots {
@@ -1999,37 +2051,59 @@ h1 {
   .game-page .trail-dot {
     width: 9px;
     height: 9px;
-    flex-basis: 9px;
   }
+
 
   /* ----------------------------------------------------------
      ROOM
+     スマホでは十分な縦長を確保
      ---------------------------------------------------------- */
 
   .game-page .room {
-    height: 1050px;
-    min-height: 1050px;
+    min-height: 820px;
+    height: 820px;
   }
+
 
   /* ----------------------------------------------------------
      TITLE
      ---------------------------------------------------------- */
 
   .game-page .wall-title {
-    left: 50%;
-
     top: 42px;
 
     width: 94%;
 
-    transform:
-      translateX(-50%);
-
-    font-size:
-      clamp(22px, 7vw, 34px);
+    font-size: clamp(22px, 7vw, 34px);
 
     line-height: 1.2;
   }
+
+
+  /* ----------------------------------------------------------
+     INDICATOR
+     タイトルから十分下へ
+     ---------------------------------------------------------- */
+
+  .game-page .loop-indicator {
+    top: 145px;
+
+    width: 94%;
+    max-width: 420px;
+  }
+
+
+  .game-page .indicator-row {
+    width: 100%;
+
+    grid-template-columns:
+      minmax(90px, 1fr)
+      minmax(70px, 100px)
+      minmax(90px, 1fr);
+
+    column-gap: 10px;
+  }
+
 
   /* ----------------------------------------------------------
      MESSAGE
@@ -2041,332 +2115,115 @@ h1 {
     width: 92%;
 
     font-size: 14px;
-
     line-height: 1.6;
   }
 
-  /* ----------------------------------------------------------
-     INDICATOR
-     ∞を完全中央
-     ---------------------------------------------------------- */
-
-  .game-page .loop-indicator {
-    left: 50%;
-
-    top: 145px;
-
-    width: 100%;
-    max-width: 430px;
-
-    padding:
-      0 10px;
-
-    transform:
-      translateX(-50%);
-  }
-
-  .game-page .indicator-row {
-    width: 100%;
-
-    display: grid;
-
-    grid-template-columns:
-      minmax(0, 1fr)
-      80px
-      minmax(0, 1fr);
-
-    column-gap: 14px;
-
-    align-items: center;
-  }
-
-  .game-page .indicator-side.left {
-    width: 100%;
-    height: 80px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: flex-end;
-
-    margin: 0;
-
-    gap: 0;
-  }
-
-  .game-page .indicator-side.right {
-    width: 100%;
-    height: 80px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: flex-start;
-
-    margin: 0;
-
-    gap: 0;
-  }
-
-  .game-page .indicator-center {
-    width: 80px;
-    height: 80px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-  }
-
-  .game-page .hint-image,
-  .game-page .arrow-image {
-    width: 40px;
-    height: 40px;
-
-    flex:
-      0 0 40px;
-  }
-
-  .game-page .infinity-mark {
-    width: 80px;
-    height: 80px;
-
-    flex:
-      0 0 80px;
-  }
 
   /* ----------------------------------------------------------
      SCENE
      ---------------------------------------------------------- */
 
   .game-page .scene {
-    top: 230px;
-
-    left: 3%;
+    top: 215px;
     right: 3%;
+    bottom: 80px;
+    left: 3%;
 
-    bottom: 390px;
-
-    min-height: 430px;
+    min-height: 520px;
   }
 
-  /* ----------------------------------------------------------
-     P
+
+  /* ==========================================================
+     P ROOM
      ???L / ???R
-     ---------------------------------------------------------- */
+     ========================================================== */
+
+  .game-page .room-p .scene {
+    top: 215px;
+  }
 
   .game-page .room-p .sign.left {
-    left: 2%;
+    left: 5%;
   }
 
   .game-page .room-p .sign.right {
-    right: 2%;
+    right: 5%;
   }
 
-  /* ----------------------------------------------------------
-     R
+
+  /* ==========================================================
+     R ROOM
      ROOF / ROOT
-     ---------------------------------------------------------- */
+     ========================================================== */
+
+  .game-page .room-r .scene {
+    top: 215px;
+  }
 
   .game-page .room-r .roof {
-    left: 2%;
+    left: 8%;
   }
 
   .game-page .room-r .root {
-    right: 2%;
+    right: 8%;
   }
 
-  /* ----------------------------------------------------------
-     M
-     MOOD
-     ---------------------------------------------------------- */
 
-  .game-page .room-m .mood {
-    top: 20px;
-
-    font-size: 19px;
-
-    padding:
-      6px 12px;
-  }
-
-  /* ----------------------------------------------------------
-     M
-     WINDOW
-     ---------------------------------------------------------- */
-
-  .game-page .room-m .moon-window {
-    left: 50%;
-
-    top: 75px;
-
-    width: 200px;
-    height: 125px;
-
-    transform:
-      translateX(-50%);
-  }
-
-  /* ----------------------------------------------------------
-     M
+  /* ==========================================================
+     M ROOM
      24:00
-     ---------------------------------------------------------- */
+     ========================================================== */
 
   .game-page .room-m .clock-24 {
     left: 50%;
+    right: auto;
 
-    top: 250px;
-
-    width: max-content;
-
-    transform:
-      translateX(-50%);
-
-    font-size: 24px;
+    transform: translateX(-50%);
   }
 
+
   /* ----------------------------------------------------------
-     N
-     WINDOW
+     インジケーター内の画像
      ---------------------------------------------------------- */
 
-  .game-page .room-n .north-window {
-    left: 50%;
-
-    top: 75px;
-
-    width: 200px;
-    height: 125px;
-
-    transform:
-      translateX(-50%);
+  .game-page .hint-image,
+  .game-page .arrow-image {
+    width: 40px;
+    height: 40px;
   }
 
+
   /* ----------------------------------------------------------
-     N
-     12:00
+     ∞
      ---------------------------------------------------------- */
 
-  .game-page .room-n .clock {
-    left: 50%;
-
-    top: 250px;
-
-    width: max-content;
-
-    transform:
-      translateX(-50%)
-      scale(1.05);
-
-    font-size: 24px;
+  .game-page .infinity-mark {
+    width: 70px;
+    height: 70px;
   }
 
+
   /* ----------------------------------------------------------
-     DOOR
-     RESETより上
+     ドア
      ---------------------------------------------------------- */
 
   .game-page .door {
-    left: 50%;
-
-    bottom: 115px;
-
-    width: 100px;
-    height: 190px;
-
-    transform:
-      translateX(-50%);
-  }
-
-  .game-page .door:hover {
-    transform:
-      translateX(-50%)
-      scale(1.05);
-  }
-
-  /* ----------------------------------------------------------
-     RESET
-     ドアよりさらに下
-     ---------------------------------------------------------- */
-
-  .game-page #reset {
-    left: 50%;
-
-    bottom: 20px;
-
-    width: 200px;
-    height: 62px;
-
-    transform:
-      translateX(-50%);
-
-    font-size: 17px;
-  }
-
-  .game-page #reset:hover {
-    transform:
-      translateX(-50%);
-  }
-
-  /* ----------------------------------------------------------
-     OBJECT
-     ---------------------------------------------------------- */
-
-  .object {
-    transform:
-      scale(.75);
-  }
-
-  /* ----------------------------------------------------------
-     X
-     ---------------------------------------------------------- */
-
-  .x-share {
-    width:
-      min(390px, 88vw);
-
-    padding:
-      15px 16px;
-  }
-
-  .x-share-icon {
-    width: 38px;
-    height: 38px;
-
-    flex-basis: 38px;
-
-    font-size: 20px;
-  }
-
-  .x-share-label {
-    font-size: 11px;
-  }
-
-  .x-share-sub {
-    font-size: 8px;
-  }
-
-  .x-share-arrow {
-    font-size: 21px;
+    bottom: 35px;
   }
 }
 
+
 /* ============================================================
-   VERY SMALL SMARTPHONE
+   VERY SMALL SMARTPHONES
    ============================================================ */
 
 @media (max-width: 380px) {
 
   .game-page .room {
-    height: 1100px;
-    min-height: 1100px;
+    min-height: 860px;
+    height: 860px;
   }
 
-  /* ----------------------------------------------------------
-     TRAIL
-     ---------------------------------------------------------- */
 
   .game-page .trail-dots {
     gap: 5px;
@@ -2375,151 +2232,435 @@ h1 {
   .game-page .trail-dot {
     width: 8px;
     height: 8px;
-    flex-basis: 8px;
   }
 
-  /* ----------------------------------------------------------
-     TITLE
-     ---------------------------------------------------------- */
 
   .game-page .wall-title {
     font-size: 21px;
   }
 
-  /* ----------------------------------------------------------
-     INDICATOR
-     ---------------------------------------------------------- */
 
   .game-page .loop-indicator {
     top: 140px;
-
-    padding:
-      0 8px;
   }
+
 
   .game-page .indicator-row {
-    grid-template-columns:
-      minmax(0, 1fr)
-      68px
-      minmax(0, 1fr);
-
-    column-gap: 10px;
+    column-gap: 4px;
   }
 
-  .game-page .indicator-center {
-    width: 68px;
-    height: 68px;
-  }
-
-  .game-page .infinity-mark {
-    width: 68px;
-    height: 68px;
-
-    flex-basis: 68px;
-  }
-
-  .game-page .indicator-side.left,
-  .game-page .indicator-side.right {
-    height: 68px;
-  }
 
   .game-page .hint-image,
   .game-page .arrow-image {
     width: 34px;
     height: 34px;
-
-    flex-basis: 34px;
   }
 
-  /* ----------------------------------------------------------
-     SCENE
-     ---------------------------------------------------------- */
 
-  .game-page .scene {
-    top: 225px;
-
-    bottom: 400px;
+  .game-page .infinity-mark {
+    width: 60px;
+    height: 60px;
   }
 
-  /* ----------------------------------------------------------
-     P
-     ---------------------------------------------------------- */
 
   .game-page .room-p .sign.left {
-    left: 0;
+    left: 1%;
   }
 
   .game-page .room-p .sign.right {
-    right: 0;
+    right: 1%;
   }
 
-  /* ----------------------------------------------------------
-     R
-     ---------------------------------------------------------- */
 
   .game-page .room-r .roof {
-    left: 0;
+    left: 2%;
   }
 
   .game-page .room-r .root {
-    right: 0;
+    right: 2%;
+  }
+}/* ============================================================
+   タイトルを画面中央に固定
+   ============================================================ */
+
+.game-page .wall-title {
+  position: absolute;
+  left: 50% !important;
+  right: auto !important;
+  width: 90% !important;
+  max-width: 1100px;
+  transform: translateX(-50%) !important;
+
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+/* タイトル内の文字・ボタンも中央基準にする */
+.game-page .wall-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+/* ============================================================
+   FINAL LAYOUT FIX
+   ドア・RESET・Mの窓・24:00・雰囲気を壊す
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   ゲーム画面
+   ------------------------------------------------------------ */
+
+.game-page {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.game-page .room {
+  position: relative;
+  height: max(900px, calc(100vh - 58px));
+  min-height: 900px;
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   RESET
+   ドアの「下」に配置する
+   ============================================================ */
+
+.game-page #reset {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 18px !important;
+
+  transform: translateX(-50%) !important;
+
+  width: 180px !important;
+  height: 56px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  z-index: 100 !important;
+
+  font-family: "DM Mono", monospace !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: .12em;
+}
+
+
+/* ============================================================
+   DOOR
+   RESETより上
+   ============================================================ */
+
+.game-page .door {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+
+  bottom: 100px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 30 !important;
+}
+
+
+/* ============================================================
+   SCENE
+   上部と下部を十分に分離
+   ============================================================ */
+
+.game-page .scene {
+  position: absolute !important;
+
+  top: 220px !important;
+  left: 5% !important;
+  right: 5% !important;
+  bottom: 330px !important;
+
+  min-height: 400px;
+}
+
+
+/* ============================================================
+   Mの部屋
+   ============================================================ */
+
+.game-page .room-m .m-scene {
+  position: absolute;
+  inset: 0;
+}
+
+
+/* ------------------------------------------------------------
+   「雰囲気を壊す」
+   窓より上
+   ------------------------------------------------------------ */
+
+.game-page .room-m .m-scene .mood {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 25px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 20 !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  white-space: nowrap;
+}
+
+
+/* ------------------------------------------------------------
+   Mの窓
+   雰囲気を壊すの下
+   24:00の上
+   ------------------------------------------------------------ */
+
+.game-page .room-m .moon-window {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 85px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 5 !important;
+}
+
+
+/* ------------------------------------------------------------
+   24:00
+   窓の完全な下
+   ------------------------------------------------------------ */
+
+.game-page .room-m .clock-24 {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 275px !important;
+  bottom: auto !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 20 !important;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   Nの部屋
+   ============================================================ */
+
+.game-page .room-n .north-window {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 60px !important;
+
+  transform: translateX(-50%) !important;
+
+  z-index: 5 !important;
+}
+
+
+/* ------------------------------------------------------------
+   12:00
+   窓の下
+   ------------------------------------------------------------ */
+
+.game-page .room-n .clock {
+  position: absolute !important;
+
+  left: 50% !important;
+  right: auto !important;
+
+  top: 245px !important;
+  bottom: auto !important;
+
+  transform: translateX(-50%) scale(1.05) !important;
+
+  z-index: 20 !important;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   スマートフォン
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .game-page .room {
+    height: 1000px;
+    min-height: 1000px;
   }
 
-  /* ----------------------------------------------------------
-     M
-     ---------------------------------------------------------- */
-
-  .game-page .room-m .mood {
-    top: 15px;
-    font-size: 18px;
-  }
-
-  .game-page .room-m .moon-window {
-    top: 70px;
-  }
-
-  .game-page .room-m .clock-24 {
-    top: 245px;
-  }
-
-  /* ----------------------------------------------------------
-     N
-     ---------------------------------------------------------- */
-
-  .game-page .room-n .north-window {
-    top: 70px;
-  }
-
-  .game-page .room-n .clock {
-    top: 240px;
-  }
-
-  /* ----------------------------------------------------------
-     DOOR
-     ---------------------------------------------------------- */
-
-  .game-page .door {
-    bottom: 120px;
-
-    width: 95px;
-    height: 185px;
-  }
 
   /* ----------------------------------------------------------
      RESET
      ---------------------------------------------------------- */
 
   .game-page #reset {
-    bottom: 20px;
+    bottom: 18px !important;
 
-    width: 200px;
-    height: 62px;
+    width: 190px !important;
+    height: 58px !important;
+
+    font-size: 17px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     DOOR
+     ---------------------------------------------------------- */
+
+  .game-page .door {
+    bottom: 115px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     SCENE
+     ---------------------------------------------------------- */
+
+  .game-page .scene {
+    top: 230px !important;
+    bottom: 360px !important;
+    left: 3% !important;
+    right: 3% !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     M：雰囲気を壊す
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .m-scene .mood {
+    top: 20px !important;
+    font-size: 19px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     M：窓
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .moon-window {
+    top: 75px !important;
+
+    width: 200px !important;
+    height: 125px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     M：24:00
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .clock-24 {
+    top: 250px !important;
+    font-size: 24px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     N：窓
+     ---------------------------------------------------------- */
+
+  .game-page .room-n .north-window {
+    top: 60px !important;
+
+    width: 200px !important;
+    height: 125px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     N：12:00
+     ---------------------------------------------------------- */
+
+  .game-page .room-n .clock {
+    top: 230px !important;
+    font-size: 24px !important;
   }
 }
+
+
 /* ============================================================
-   RESET
-   常にブラウザ画面の一番下に固定
+   小さいスマートフォン
    ============================================================ */
+
+@media (max-width: 380px) {
+
+  .game-page .room {
+    height: 1040px;
+    min-height: 1040px;
+  }
+
+
+  .game-page #reset {
+    bottom: 18px !important;
+    width: 190px !important;
+    height: 60px !important;
+  }
+
+
+  .game-page .door {
+    bottom: 120px !important;
+  }
+
+
+  .game-page .room-m .m-scene .mood {
+    top: 15px !important;
+    font-size: 18px !important;
+  }
+
+
+  .game-page .room-m .moon-window {
+    top: 70px !important;
+  }
+
+
+  .game-page .room-m .clock-24 {
+    top: 245px !important;
+  }
+
+
+  .game-page .room-n .north-window {
+    top: 55px !important;
+  }
+
+
+  .game-page .room-n .clock {
+    top: 225px !important;
+  }
+}
+/* =========================================
+   RESET：常に画面下に固定
+   ========================================= */
 
 .game-page #reset {
   position: fixed !important;
@@ -2527,99 +2668,289 @@ h1 {
   left: 50% !important;
   right: auto !important;
   top: auto !important;
-
   bottom: 16px !important;
 
   transform: translateX(-50%) !important;
 
-  width: 190px !important;
-  height: 58px !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
   z-index: 9999 !important;
 
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  width: 190px;
+  height: 50px;
 
-  font:
-    700 16px "DM Mono",
-    monospace !important;
+  margin: 0 !important;
+  padding: 9px 12px;
 
-  letter-spacing: .12em;
-
-  color: #fff;
-  background: #1b1b1b;
+  font: 11px "DM Mono", monospace;
+  letter-spacing: .1em;
 
   cursor: pointer;
 }
 
+/* ホバー */
 .game-page #reset:hover {
   transform: translateX(-50%) !important;
-  background: #aa3030;
 }
 
-.game-page #reset:active {
-  transform:
-    translateX(-50%)
-    scale(.97) !important;
+/* スマホ */
+@media (max-width: 600px) {
+  .game-page #reset {
+    width: 180px;
+    height: 48px;
+    bottom: 14px !important;
+  }
+}
+/* =========================================
+   CLEAR LINKS
+   ========================================= */
+
+.clear-scene .clear-links {
+  width: min(92%, 520px);
+  margin: 28px auto 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
+/* 既存のXボタンをクリア画面内で整える */
+.clear-scene .x-share {
+  width: 100%;
+  margin: 0;
+}
+
+/* 告知ポストがまだ存在しない間 */
+.clear-scene .announcement-link[href="#"] {
+  cursor: default;
+  opacity: .45;
+}
+
+/* 告知ポストが未公開の場合はクリックしても移動しない */
+.clear-scene .announcement-link[href="#"]:active {
+  pointer-events: none;
+}
 /* ============================================================
-   MOBILE RESET
+   FINAL MOBILE FIX
+   ∞ と ? の左右対称配置
+   Mの部屋の24:00を完全中央
    ============================================================ */
 
 @media (max-width: 700px) {
 
-  .game-page #reset {
-    position: fixed !important;
+  /* ----------------------------------------------------------
+     LOOP INDICATOR
+     左 ? ←→ ∞ ←→ ? を完全にバランス配置
+     ---------------------------------------------------------- */
+
+  .game-page .loop-indicator {
+    left: 50% !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    padding: 0 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .game-page .indicator-row {
+    width: 100% !important;
+
+    display: grid !important;
+
+    /*
+      左右を同じ幅にする。
+      中央を∞専用の幅にすることで、
+      ? と ∞ の距離も左右で揃う。
+    */
+    grid-template-columns:
+      minmax(0, 1fr)
+      80px
+      minmax(0, 1fr) !important;
+
+    column-gap: 18px !important;
+
+    align-items: center !important;
+    justify-items: center !important;
+  }
+
+  /* 左側 */
+  .game-page .indicator-side.left {
+    width: 100% !important;
+    height: 80px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* 中央 */
+  .game-page .indicator-center {
+    width: 80px !important;
+    height: 80px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* 右側 */
+  .game-page .indicator-side.right {
+    width: 100% !important;
+    height: 80px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* ? と矢印 */
+  .game-page .hint-image,
+  .game-page .arrow-image {
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+  }
+
+  /* ∞ */
+  .game-page .infinity-mark {
+    width: 80px !important;
+    height: 80px !important;
+    flex: 0 0 80px !important;
+  }
+
+
+  /* ----------------------------------------------------------
+     Mの部屋：24:00
+     常に画面の真ん中
+     ---------------------------------------------------------- */
+
+  .game-page .room-m .clock-24 {
+    position: absolute !important;
 
     left: 50% !important;
     right: auto !important;
-    top: auto !important;
 
-    bottom: 14px !important;
+    top: 250px !important;
+    bottom: auto !important;
 
-    width: 200px !important;
-    height: 60px !important;
+    width: max-content !important;
+    height: auto !important;
 
-    transform:
-      translateX(-50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    z-index: 9999 !important;
+    transform: translateX(-50%) !important;
 
-    font-size: 17px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    z-index: 50 !important;
   }
 
-  .game-page #reset:hover {
-    transform:
-      translateX(-50%) !important;
-  }
 }
 
+
 /* ============================================================
-   VERY SMALL SCREEN
+   とても小さいスマートフォン
    ============================================================ */
 
 @media (max-width: 380px) {
 
-  .game-page #reset {
-    position: fixed !important;
+  .game-page .loop-indicator {
+    padding: 0 8px !important;
+  }
 
+  .game-page .indicator-row {
+    grid-template-columns:
+      minmax(0, 1fr)
+      68px
+      minmax(0, 1fr) !important;
+
+    column-gap: 12px !important;
+  }
+
+  .game-page .indicator-center {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  .game-page .infinity-mark {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  .game-page .indicator-side.left,
+  .game-page .indicator-side.right {
+    height: 68px !important;
+  }
+
+  .game-page .hint-image,
+  .game-page .arrow-image {
+    width: 34px !important;
+    height: 34px !important;
+    flex-basis: 34px !important;
+  }
+
+  .game-page .room-m .clock-24 {
     left: 50% !important;
-    right: auto !important;
-    top: auto !important;
+    top: 245px !important;
+    transform: translateX(-50%) !important;
+  }
 
-    bottom: 12px !important;
+}
+/* ============================================================
+   ∞を画面の完全中央に固定
+   ============================================================ */
 
-    width: 200px !important;
-    height: 60px !important;
+@media (max-width: 700px) {
+  .game-page .indicator-row {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 80px !important;
+  }
 
-    transform:
-      translateX(-50%) !important;
+  .game-page .infinity-mark {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 80px !important;
+    height: 80px !important;
+  }
 
-    z-index: 9999 !important;
+  .game-page .indicator-side.left {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 50% !important;
+    height: 80px !important;
+  }
+
+  .game-page .indicator-side.right {
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    width: 50% !important;
+    height: 80px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .game-page .indicator-row {
+    height: 68px !important;
+  }
+
+  .game-page .infinity-mark {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  .game-page .indicator-side.left,
+  .game-page .indicator-side.right {
+    height: 68px !important;
   }
 }
