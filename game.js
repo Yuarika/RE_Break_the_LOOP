@@ -1076,33 +1076,22 @@ function shoot(
     return true;
   }
 
+// ========================================================
+// 同じ単語を再び撃った
+// ========================================================
 
-  // ==========================================================
-  // 同じ単語を再び撃った
-  // ==========================================================
+if (
+  used.includes(word)
+) {
 
-  if (
-    used.includes(word)
-  ) {
+  const first =
+    used.indexOf(word);
 
-    const first =
-      used.indexOf(word);
-
-
-    used.push(word);
-
-
-    loopRange = [
-      first,
-      used.length - 1
-    ];
-
-
-    const isLongLoop =
-      checkLongLoop(
-        first,
-        word
-      );
+  // 2回目の単語は履歴に追加しない
+  loopRange = [
+    first,
+    used.length - 1
+  ];
 
 
     // ========================================================
