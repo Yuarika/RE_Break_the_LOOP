@@ -2012,3 +2012,357 @@ h1 {
     bottom: 14px !important;
   }
 }
+/* ============================================================
+   FINAL LAYOUT FIX
+   ============================================================ */
+
+
+/* ============================================================
+   P ROOM
+   ???L / ???P をもっと上へ
+   PC + スマホ共通
+   ============================================================ */
+
+.game-page .room-p .sign.left,
+.game-page .room-p .sign.right {
+  top: 20% !important;
+}
+
+
+/* ============================================================
+   MOBILE ONLY
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  /* ==========================================================
+     ∞
+     スマホでは .infinity-mark が indicator-row の
+     直接の子なので、absolute で画面中央に固定
+     ========================================================== */
+
+  .game-page .loop-indicator {
+    left: 50% !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .game-page .indicator-row {
+    position: relative !important;
+    width: 100% !important;
+    height: 80px !important;
+    display: block !important;
+  }
+
+  .game-page .infinity-mark {
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 50% !important;
+
+    width: 80px !important;
+    height: 80px !important;
+
+    margin: 0 !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    z-index: 10 !important;
+  }
+
+
+  /* ==========================================================
+     左右の ? / 矢印
+     ========================================================== */
+
+  .game-page .indicator-side {
+    position: absolute !important;
+
+    top: 0 !important;
+
+    width: 90px !important;
+    height: 80px !important;
+
+    margin: 0 !important;
+
+    display: block !important;
+  }
+
+  .game-page .indicator-side.left {
+    left: calc(50% - 130px) !important;
+  }
+
+  .game-page .indicator-side.right {
+    left: calc(50% + 40px) !important;
+  }
+
+  .game-page .indicator-side .arrow-image,
+  .game-page .indicator-side .hint-image {
+    position: absolute !important;
+
+    top: 20px !important;
+
+    width: 40px !important;
+    height: 40px !important;
+
+    margin: 0 !important;
+
+    object-fit: contain !important;
+  }
+
+  /* 左：矢印 → ? */
+  .game-page .indicator-side.left .arrow-image {
+    left: 0 !important;
+  }
+
+  .game-page .indicator-side.left .hint-image {
+    left: 44px !important;
+  }
+
+  /* 右：? → 矢印 */
+  .game-page .indicator-side.right .hint-image {
+    left: 0 !important;
+  }
+
+  .game-page .indicator-side.right .arrow-image {
+    left: 44px !important;
+  }
+
+
+  /* ==========================================================
+     P ROOM
+     ???L / ???P をさらに上へ
+     ========================================================== */
+
+  .game-page .room-p .sign.left,
+  .game-page .room-p .sign.right {
+    top: 5% !important;
+  }
+
+
+  /* ==========================================================
+     R ROOM
+     ROOF / ROOT を縦に並べる
+     
+     ROOF：上
+     ROOT：下
+     ========================================================== */
+
+  .game-page .room-r .roof {
+    left: 50% !important;
+    right: auto !important;
+    top: 2% !important;
+
+    transform: translateX(-50%) !important;
+  }
+
+  .game-page .room-r .roof:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+
+  .game-page .room-r .root {
+    left: 50% !important;
+    right: auto !important;
+    top: 43% !important;
+
+    transform: translateX(-50%) !important;
+  }
+
+  .game-page .room-r .root:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+
+
+  /* ==========================================================
+     F ROOM
+     FOOT をドアから離して上へ
+     ========================================================== */
+
+  .game-page .room-f .foot {
+    left: 50% !important;
+    top: 3% !important;
+
+    transform: translateX(-50%) !important;
+  }
+
+  .game-page .room-f .foot:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+
+
+  /* ==========================================================
+     T ROOM
+     TOOL をドアから離して上へ
+     ========================================================== */
+
+  .game-page .room-t .tool-image {
+    left: 50% !important;
+    top: 2% !important;
+
+    transform: translateX(-50%) !important;
+  }
+
+  .game-page .room-t .tool-image:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+
+
+  /* ==========================================================
+     M ROOM
+     24:00 を確実に表示
+     ========================================================== */
+
+  .game-page .room-m .clock-24 {
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 250px !important;
+
+    width: max-content !important;
+    height: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 100 !important;
+
+    display: block !important;
+
+    color: #222 !important;
+
+    font-size: 24px !important;
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+
+  /* ==========================================================
+     N ROOM
+     12:00 を確実に表示
+     ========================================================== */
+
+  .game-page .room-n .clock {
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 230px !important;
+
+    width: max-content !important;
+    height: auto !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    transform: translateX(-50%) scale(1.05) !important;
+
+    z-index: 100 !important;
+
+    display: block !important;
+
+    color: #222 !important;
+
+    font-size: 24px !important;
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+
+  /* ==========================================================
+     DOOR
+     ROOF / ROOT / FOOT / TOOL と距離を取る
+     ========================================================== */
+
+  .game-page .door {
+    bottom: 35px !important;
+  }
+}
+
+
+/* ============================================================
+   VERY SMALL SMARTPHONE
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  /* ==========================================================
+     ∞
+     ========================================================== */
+
+  .game-page .indicator-row {
+    height: 68px !important;
+  }
+
+  .game-page .infinity-mark {
+    left: 50% !important;
+    top: 50% !important;
+
+    width: 68px !important;
+    height: 68px !important;
+
+    transform: translate(-50%, -50%) !important;
+  }
+
+
+  /* ==========================================================
+     R
+     ========================================================== */
+
+  .game-page .room-r .roof {
+    top: 0 !important;
+  }
+
+  .game-page .room-r .root {
+    top: 42% !important;
+  }
+
+
+  /* ==========================================================
+     F
+     ========================================================== */
+
+  .game-page .room-f .foot {
+    top: 0 !important;
+  }
+
+
+  /* ==========================================================
+     T
+     ========================================================== */
+
+  .game-page .room-t .tool-image {
+    top: 0 !important;
+  }
+
+
+  /* ==========================================================
+     M : 24:00
+     ========================================================== */
+
+  .game-page .room-m .clock-24 {
+    top: 245px !important;
+    font-size: 23px !important;
+  }
+
+
+  /* ==========================================================
+     N : 12:00
+     ========================================================== */
+
+  .game-page .room-n .clock {
+    top: 225px !important;
+    font-size: 23px !important;
+  }
+}
