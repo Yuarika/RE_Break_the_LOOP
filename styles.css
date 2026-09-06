@@ -2569,3 +2569,41 @@ h1 {
     bottom: 125px !important;
   }
 }
+/* ============================================================
+   BACKGROUND IMAGE
+   ============================================================ */
+
+.game-page {
+  position: relative;
+  min-height: 100vh;
+  background: #000;
+}
+
+/* 背景画像 */
+.game-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image: url("../image/Background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0.25;
+
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* 背景画像の上に薄い黒を重ねる */
+.game-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.15);
+
+  z-index: -1;
+  pointer-events: none;
+}
