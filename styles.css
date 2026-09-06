@@ -2585,7 +2585,7 @@ h1 {
   position: fixed;
   inset: 0;
 
-  background-image: url("../image/Background.png");
+  background-image: url("./image/Background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
