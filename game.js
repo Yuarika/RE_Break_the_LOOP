@@ -1871,29 +1871,21 @@ function updateIndicator() {
   // PERIOD
   // ==========================================================
 
-  if (
-    indicatorState ===
-    'period'
-  ) {
-
-    indicator.innerHTML = `
-      <div class="indicator-row">
-
-        <div class="indicator-side left"></div>
-
-        <div class="indicator-center">
-          <span class="period-message">
-            PERIOD
-          </span>
-        </div>
-
-        <div class="indicator-side right"></div>
-
+  if (indicatorState === 'period') {
+  indicator.innerHTML = `
+    <div class="indicator-row">
+      <div class="indicator-side left"></div>
+      <div class="indicator-center">
+        <span
+          class="period-message"
+          style="position:static; left:auto; transform:none; width:auto; text-align:center;"
+        >PERIOD</span>
       </div>
-    `;
-
-    return;
-  }
+      <div class="indicator-side right"></div>
+    </div>
+  `;
+  return;
+}
 }
 
 
