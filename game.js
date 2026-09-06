@@ -847,52 +847,6 @@ title.className = 'wall-title';
   }
 
 
-  // ==========================================================
-  // Pに到着した場合
-  // ==========================================================
-
-  if (
-    periodAvailable &&
-    current === 'P'
-  ) {
-
-    message.textContent =
-      '終止符をうて　でなければ再び繰り返す';
-  }
-
-
-  // ==========================================================
-  // 長いループ完成直後のメッセージ
-  // ==========================================================
-
-  if (
-    longLoopArrivalMessagePending
-  ) {
-
-    /*
-     * Pでは
-     * 「終止符をうて　でなければ再び繰り返す」
-     * を優先。
-     *
-     * P以外なら一度だけ
-     * 「ここでは終止符をうてない...」
-     * を表示。
-     */
-
-    if (
-      current !== 'P' &&
-      current !== 'C'
-    ) {
-
-      message.textContent =
-        'ここでは終止符をうてない　再び繰り返すしかない';
-    }
-
-
-    longLoopArrivalMessagePending =
-      false;
-  }
-
 
   // ==========================================================
   // CLEAR
@@ -1474,28 +1428,62 @@ door.addEventListener(
        *
        * という状態。
        */
+// ======================================================
+// 長いループ完成後 → 次の部屋へ到着
+// ======================================================
 
-      else if (
-        current === 'P' &&
-        periodAvailable &&
-        longLoopArrivalMessagePending
-      ) {
+else if (
+  longLoopArrivalMessagePending
+) {
 
-        used = [];
+  /*
+   * 長いループ完成後は、
+   * どの部屋に到着しても左矢印を表示しない。
+   *
+   * ループの進捗はリセットする。
+   *
+   * Pに到着した場合だけ、
+   * periodAvailable は true のまま。
+   */
 
-        loopRange = null;
+  used = [];
 
-        loopClosed = false;
+  loopRange = null;
 
-        /*
-         * periodAvailable は
-         * true のまま。
-         */
+  loopClosed = false;
 
-        indicatorState =
-          'arrived-after-repeat';
-      }
+  if (current === 'P') {
 
+    /*
+     * Pでも文章は表示しない。
+     *
+     * 終止符を撃てる状態だけ維持する。
+     */
+    periodAvailable = true;
+
+  } else {
+
+    /*
+     * P以外では、
+     * 終止符を撃てる状態ではないので解除。
+     */
+    periodAvailable = false;
+  }
+
+  /*
+   * 左矢印を表示しない。
+   * 「？」だけ表示する。
+   */
+  indicatorState =
+    'arrived-after-repeat';
+
+  /*
+   * 長いループ到着メッセージは
+   * もう表示しないので解除。
+   */
+  longLoopArrivalMessagePending =
+    false;
+}
 
       // ======================================================
       // 通常到着
