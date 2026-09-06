@@ -2568,42 +2568,41 @@ h1 {
   .game-page .door {
     bottom: 125px !important;
   }
-}
-/* ============================================================
+}/* ============================================================
    BACKGROUND IMAGE
+   Background.png を常に部屋の背景として表示
    ============================================================ */
 
-.game-page {
+.game-page .room {
   position: relative;
-  min-height: 100vh;
-  background: #000;
 }
 
-/* 背景画像 */
-.game-page::before {
+/* Background.png */
+.game-page .room::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
 
-  background-image: url("../image/Background.png");
+  background-image: url("./image/Background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   opacity: 0.25;
 
-  z-index: -2;
   pointer-events: none;
+
+  /*
+   * room 自体の背景より上、
+   * ゲームの文字・画像・ボタンより下
+   */
+  z-index: 0;
 }
 
-/* 背景画像の上に薄い黒を重ねる */
-.game-page::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0, 0, 0, 0.15);
-
-  z-index: -1;
-  pointer-events: none;
+/*
+ * Background.png よりゲーム要素を前面に出す
+ */
+.game-page .room > * {
+  position: relative;
+  z-index: 2;
 }
