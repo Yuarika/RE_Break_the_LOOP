@@ -868,7 +868,6 @@ title.className = 'wall-title';
   updateIndicator();
 }
 
-
 // ============================================================
 // SHOOT
 // ============================================================
@@ -886,36 +885,35 @@ function shoot(
 
   /*
    * ==========================================================
-   * 長いループ完成後の「再び繰り返す」
+   * 長いループ完成後に、ピリオドを撃たず
+   * 別のものを撃った
    * ==========================================================
    *
-   * ここが今回の重要部分。
+   * この状態では、
    *
-   * 「ここでは終止符を打てない」
-   * と言われた後、
+   * 「ピリオドをうたなかった」
+   * 「再び長いループを完成させろ」
    *
-   * 実際に何かを撃った瞬間だけ
-   * 以前のループ履歴を完全に捨てる。
+   * を、その「次に撃った瞬間」に表示する。
    *
-   * ただし、
+   * 到着しただけでは表示しない。
    *
-   * - current
-   * - pending
-   * - doorDestroyed
-   * - locked
+   * Pの場合：
+   *   POOL / POOR を撃った瞬間に表示。
    *
-   * などの部屋・ドアの状態は変更しない。
-   *
-   * そのためDのドアを撃った場合でも、
-   * 履歴だけがリセットされ、
-   * ドア破壊処理は通常通り動く。
-   *
-   * また、この処理はclear()には入らない。
-   * Pでピリオドを撃った場合は
-   * periodAvailableを維持したままクリアできる。
+   * P以外の場合：
+   *   その部屋の何かを撃った瞬間に表示。
    */
 
+  const missedPeriod =
+    restartAfterLongLoop;
+
+
   if (restartAfterLongLoop) {
+
+    /*
+     * 長いループの履歴をリセット。
+     */
 
     used = [];
 
@@ -981,8 +979,21 @@ function shoot(
     unlockSound();
 
 
-    message.textContent =
-      '?∞?を壊した！';
+    /*
+     * 長いループ後に撃った場合は
+     * 専用メッセージを表示。
+     */
+    if (missedPeriod) {
+
+      message.innerHTML =
+        '<strong>ピリオドをうたなかった</strong><br>' +
+        '再び長いループを完成させろ';
+
+    } else {
+
+      message.textContent =
+        '?∞?を壊した！';
+    }
 
 
     indicatorState =
@@ -1012,8 +1023,22 @@ function shoot(
     pending = next;
 
 
-    message.textContent =
-      '?∞?を壊した！';
+    /*
+     * 長いループ後に撃った場合は
+     * 専用メッセージを表示。
+     */
+    if (missedPeriod) {
+
+      message.innerHTML =
+        '<strong>ピリオドをうたなかった</strong><br>' +
+        '再び長いループを完成させろ';
+
+    } else {
+
+      message.textContent =
+        '?∞?を壊した！';
+    }
+
 
     unlockSound();
 
@@ -1040,9 +1065,6 @@ function shoot(
 
     const first =
       used.indexOf(word);
-
-
-
 
     loopRange = [
       first,
@@ -1093,7 +1115,7 @@ function shoot(
        * この長いループの履歴を破棄する。
        *
        * Pでピリオドを撃った場合は
-       * clear()側でこのフラグを解除する。
+       * clear()側で解除される。
        */
 
       restartAfterLongLoop = true;
@@ -1134,15 +1156,6 @@ function shoot(
     // 短いループ
     // ========================================================
 
-    /*
-     * 長いループではない。
-     *
-     * ピリオド可能状態もここで破棄する。
-     *
-     * PでPOOL / POORを撃った場合もここに入り、
-     * 新しいループとして始める。
-     */
-
     loopClosed = false;
 
     periodAvailable = false;
@@ -1156,8 +1169,25 @@ function shoot(
     pending = next;
 
 
-    message.innerHTML =
-      '<strong>短いループになってしまった！</strong>';
+    /*
+     * 通常の短いループなら
+     * 「短いループになってしまった！」。
+     *
+     * ただし、
+     * 長いループ後に最初に撃った場合は
+     * 「ピリオドをうたなかった」を優先。
+     */
+    if (missedPeriod) {
+
+      message.innerHTML =
+        '<strong>ピリオドをうたなかった</strong><br>' +
+        '再び長いループを完成させろ';
+
+    } else {
+
+      message.innerHTML =
+        '<strong>短いループになってしまった！</strong>';
+    }
 
 
     door.classList.add(
@@ -1197,8 +1227,24 @@ function shoot(
   pending = next;
 
 
-  message.textContent =
-    '?∞?を壊した！';
+  /*
+   * 長いループ後に撃った場合は
+   * 「ピリオドをうたなかった」を表示。
+   *
+   * それ以外は従来通り。
+   */
+  if (missedPeriod) {
+
+    message.innerHTML =
+      '<strong>ピリオドをうたなかった</strong><br>' +
+      '再び長いループを完成させろ';
+
+  } else {
+
+    message.textContent =
+      '?∞?を壊した！';
+  }
+
 
   door.classList.add(
     'open'
@@ -1215,10 +1261,15 @@ function shoot(
 
 
   if (word === 'mood') {
-  moodBroken = true;
-  room.style.background = 'linear-gradient(115deg, #fafafa, #e7e7e5)';
-  room.style.color = '#151515';
-}
+
+    moodBroken = true;
+
+    room.style.background =
+      'linear-gradient(115deg, #fafafa, #e7e7e5)';
+
+    room.style.color =
+      '#151515';
+  }
 
 
   updateTrail();
@@ -1805,9 +1856,9 @@ function updateIndicator() {
 
         ${infinity}
 
-        <div class="indicator-side right">
-          ${q}
-        </div>
+         <div class="indicator-side right">
+        ${q}${arrow}
+      </div>
 
       </div>
     `;
