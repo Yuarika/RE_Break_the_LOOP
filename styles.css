@@ -160,16 +160,17 @@ h1 {
   min-height: 32px;
   pointer-events: none;
 }
-
 .game-page #trail {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: auto;
+  bottom: calc(10% + 230px + 20px);
+  transform: translateX(-50%);
   width: max-content;
   padding: 0;
   margin: 0;
   white-space: nowrap;
+  z-index: 11;
 }
 
 .trail-dots {
@@ -2444,6 +2445,14 @@ h1 {
     z-index: 10 !important;
   }
 
+    .game-page #trail {
+    left: 50%;
+    top: auto;
+    bottom: 380px;
+    transform: translateX(-50%);
+    width: max-content;
+    z-index: 11;
+  }
 
   /* ----------------------------------------------------------
      F ROOM
@@ -2567,6 +2576,9 @@ h1 {
 
   .game-page .door {
     bottom: 125px !important;
+  }
+   .game-page #trail {
+    bottom:375px;
   }
 }
 /* ============================================================
