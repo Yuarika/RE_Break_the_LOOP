@@ -2205,7 +2205,7 @@ function clearSound() {
     () => tone(
       784,
       0.35,
-      'sine
+      'sine'
     ),
     280
   );
