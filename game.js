@@ -598,31 +598,27 @@ title.className = 'wall-title';
 '<span class="title-fixed">LOOP</span>'; 
 
   } else if (
-    periodAvailable &&
-    current === 'P'
-  ) {
+  periodAvailable &&
+  current === 'P'
+) {
 
-    /*
-     * 長いループ完成後のP。
-     *
-     * Pの右下に透明なピリオド判定を置く。
-     */
+  title.innerHTML = `
+    <span class="title-fixed">
+      RE: Break the
+    </span>
 
-    title.innerHTML = `
-      <span class="title-fixed">
-        RE: Break the
+    <span>&nbsp;</span>
+
+    <span class="period-loop">
+      LOO<span class="period-p">
+        P
+        <button
+          class="period-target"
+          aria-label="ピリオド"
+        ></button>
       </span>
-
-      <span class="period-loop">
-        LOO<span class="period-p">
-          P
-          <button
-            class="period-target"
-            aria-label="ピリオド"
-          ></button>
-        </span>
-      </span>
-    `;
+    </span>
+  `;
 
   } else if (current === 'C') {
 
