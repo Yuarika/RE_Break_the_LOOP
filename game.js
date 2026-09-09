@@ -318,7 +318,7 @@ const rooms = {
 
   // このサイトの告知ポスト
   // ポスト公開後、このURLだけ変更してください。
-  const announcementPostUrl = '#';
+  const announcementPostUrl = 'https://x.com/yuarikaa/status/2095108421909696979';
 
   const el = document.createElement('section');
   el.className = 'clear-scene';
