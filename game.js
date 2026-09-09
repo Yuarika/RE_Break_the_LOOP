@@ -313,48 +313,53 @@ const rooms = {
   C: () => {
 
     // =========================================
-    // 告知ポストのURL
-    //
-    // 告知ポスト公開後、この1行だけ変更してください。
-    // =========================================
+// 告知ポストのURL
+//
+// ★ここだけ変更してください★
+// =========================================
 
-    const announcementPostUrl = '';
-
-
-
-    // =========================================
-    // X共有URL
-    //
-    // announcementPostUrl にURLが入っていれば、
-    // そのポストのURLを共有文の最後に追加する。
-    // =========================================
-
-    const shareText =
-      'web謎「RE:Break the LOOP」をクリアしました！';
+const announcementPostUrl =
+  'ここに告知ポストのURL';
 
 
 
-    const xShareUrl =
-      'https://twitter.com/intent/tweet?text=' +
-      encodeURIComponent(
-        shareText
-      ) +
-      (
-        announcementPostUrl
-          ? '&url=' +
-            encodeURIComponent(
-              announcementPostUrl
-            )
-          : ''
-      ) +
-      '&hashtags=' +
-      encodeURIComponent(
-        '謎解き,RE_BTL'
-      ) +
-      '&via=' +
-      encodeURIComponent(
-        'yuarikaa'
-      );
+// =========================================
+// クリア時にXへ投稿する文章
+//
+// 以下の2つのURLが投稿文に入ります。
+// ① ゲーム本体
+// ② 告知用ポスト
+// =========================================
+
+const shareText =
+  'web謎「RE: Break the LOOP」をクリアしました！' +
+  '\n' +
+  'https://yuarika.github.io/RE_Break_the_LOOP/' +
+  (
+    announcementPostUrl
+      ? '\n' + announcementPostUrl
+      : ''
+  );
+
+
+
+// =========================================
+// X共有URL
+// =========================================
+
+const xShareUrl =
+  'https://twitter.com/intent/tweet?text=' +
+  encodeURIComponent(
+    shareText
+  ) +
+  '&hashtags=' +
+  encodeURIComponent(
+    '謎解き,RE_BTL'
+  ) +
+  '&via=' +
+  encodeURIComponent(
+    'yuarikaa'
+  );
 
 
 
