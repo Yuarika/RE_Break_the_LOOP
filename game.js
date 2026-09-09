@@ -319,7 +319,7 @@ C: () => {
   // 空文字のままでOK。
   // =========================================
 
-  const announcementPostUrl = '';
+  const announcementPostUrl = 'https://x.com/yuarikaa/status/2097612090353783190';
 
 
 
