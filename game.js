@@ -319,7 +319,7 @@ const rooms = {
 // =========================================
 
 const announcementPostUrl =
-  'ここに告知ポストのURL';
+  'https://x.com/yuarikaa/status/2095108421909696979';
 
 
 
