@@ -305,155 +305,157 @@ const rooms = {
     'tool',
     'L'
   ),
+// ----------------------------------------------------------
+// C
+// ----------------------------------------------------------
+C: () => {
 
+  // =========================================
+  // 告知ポストのURL
+  //
+  // ★ 告知ポストを公開したら、この1行だけ変更 ★
+  //
+  // 現在はまだ告知ポストをしていないので
+  // 空文字のままでOK。
+  // =========================================
 
-  // ----------------------------------------------------------
-  // C
-  // ----------------------------------------------------------
-  C: () => {
-
-    // =========================================
-    // 告知ポストのURL
-    //
-    // 告知ポスト公開後、この1行だけ変更してください。
-    // =========================================
-
-    const announcementPostUrl = '';
-
-
-
-    // =========================================
-    // X共有URL
-    //
-    // announcementPostUrl にURLが入っていれば、
-    // そのポストのURLを共有文の最後に追加する。
-    // =========================================
-
-    const shareText =
-      'web謎「RE:Break the LOOP」をクリアしました！';
+  const announcementPostUrl = '';
 
 
 
-    const xShareUrl =
-      'https://twitter.com/intent/tweet?text=' +
-      encodeURIComponent(
-        shareText
-      ) +
-      (
-        announcementPostUrl
-          ? '&url=' +
-            encodeURIComponent(
-              announcementPostUrl
-            )
-          : ''
-      ) +
-      '&hashtags=' +
-      encodeURIComponent(
-        '謎解き,RE_BTL'
-      ) +
-      '&via=' +
-      encodeURIComponent(
-        'yuarikaa'
-      );
+  // =========================================
+  // X共有文
+  //
+  // 告知ポストのURLが設定されている場合だけ
+  // そのURLを追加する。
+  // =========================================
+
+  const shareText =
+    'web謎「RE: Break the LOOP」をクリアしました！' +
+    '\n' +
+    'https://yuarika.github.io/RE_Break_the_LOOP/' +
+    (
+      announcementPostUrl
+        ? '\n' + announcementPostUrl
+        : ''
+    );
 
 
 
-    // =========================================
-    // CLEAR画面
-    // =========================================
+  // =========================================
+  // X共有URL
+  // =========================================
 
-    const el =
-      document.createElement('section');
+  const xShareUrl =
+    'https://twitter.com/intent/tweet?text=' +
+    encodeURIComponent(
+      shareText
+    ) +
+    '&hashtags=' +
+    encodeURIComponent(
+      '謎解き,RE_BTL'
+    ) +
+    '&via=' +
+    encodeURIComponent(
+      'yuarikaa'
+    );
 
-    el.className =
-      'clear-scene';
+
+
+  // =========================================
+  // CLEAR画面
+  // =========================================
+
+  const el =
+    document.createElement('section');
+
+  el.className =
+    'clear-scene';
 
 
 
-    el.innerHTML = `
-      <h2>CLEAR!</h2>
+  el.innerHTML = `
+    <h2>CLEAR!</h2>
 
-      <p>RE: Break the LOOP.</p>
+    <p>RE: Break the LOOP.</p>
 
-      <div class="clear-links">
+    <div class="clear-links">
 
+      <!-- =================================
+           クリア結果の投稿
+           ================================= -->
 
-        <!-- =================================
-             クリア結果の投稿
-             ================================= -->
+      <a
+        class="x-share"
+        target="_blank"
+        rel="noopener"
+        href="${xShareUrl}"
+      >
 
-        <a
-          class="x-share"
-          target="_blank"
-          rel="noopener"
-          href="${xShareUrl}"
-        >
+        <span class="x-share-icon">
+          𝕏
+        </span>
 
-          <span class="x-share-icon">
-            𝕏
+        <span class="x-share-content">
+
+          <span class="x-share-label">
+            クリアをXで共有
           </span>
 
-          <span class="x-share-content">
-
-            <span class="x-share-label">
-              クリアをXで共有
-            </span>
-
-            <span class="x-share-sub">
-              SHARE YOUR RESULT
-            </span>
-
+          <span class="x-share-sub">
+            SHARE YOUR RESULT
           </span>
 
-          <span class="x-share-arrow">
-            ↗
+        </span>
+
+        <span class="x-share-arrow">
+          ↗
+        </span>
+
+      </a>
+
+
+
+      <!-- =================================
+           作者のプロフィール
+           ================================= -->
+
+      <a
+        class="x-share"
+        target="_blank"
+        rel="noopener"
+        href="https://yuarika.github.io/Yuarika_Profile/"
+      >
+
+        <span class="x-share-icon">
+          ↗
+        </span>
+
+        <span class="x-share-content">
+
+          <span class="x-share-label">
+            作者のプロフィール
           </span>
 
-        </a>
-
-
-
-        <!-- =================================
-             作者のプロフィール
-             ================================= -->
-
-        <a
-          class="x-share"
-          target="_blank"
-          rel="noopener"
-          href="https://yuarika.github.io/Yuarika_Profile/"
-        >
-
-          <span class="x-share-icon">
-            ↗
+          <span class="x-share-sub">
+            YUARIKA PROFILE
           </span>
 
-          <span class="x-share-content">
+        </span>
 
-            <span class="x-share-label">
-              作者のプロフィール
-            </span>
+        <span class="x-share-arrow">
+          ↗
+        </span>
 
-            <span class="x-share-sub">
-              YUARIKA PROFILE
-            </span>
+      </a>
 
-          </span>
-
-          <span class="x-share-arrow">
-            ↗
-          </span>
-
-        </a>
-
-
-      </div>
-    `;
+    </div>
+  `;
 
 
 
-    return el;
-  },
+  return el;
+},
 };
 
 
